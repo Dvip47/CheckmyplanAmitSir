@@ -1,6 +1,6 @@
-@import url('/src/assets/css/bootstrap.min.css');
-@import url('/src/assets/css/style.css');
-@import url('/src/assets/css/icons.css');
+@import url("/src/assets/css/bootstrap.min.css");
+@import url("/src/assets/css/style.css");
+@import url("/src/assets/css/icons.css");
 
 .App {
   text-align: center;
@@ -39,4 +39,15 @@
   to {
     transform: rotate(360deg);
   }
+}
+.cus-id {
+  position: relative;
+  left: 31px;
+  bottom: 20px;
+}
+.cus-id p {
+  line-height: 21px;
+}
+.cus-id span {
+  font-weight: bold;
 }

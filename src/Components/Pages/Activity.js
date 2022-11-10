@@ -32,7 +32,7 @@ function Activity() {
       );
 
       Token.on("Transfer", (from, to, amount, event) => {
-        console.log({ from, to, amount, event });
+        // console.log({ from, to, amount, event });
 
         setTxns((currentTxs) => [
           ...currentTxs,
@@ -69,9 +69,9 @@ function Activity() {
     await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner();
     const Token = new ethers.Contract(RTCP_Address, RTCP.abi, signer);
-    console.log(data.get("address"));
+    // console.log(data.get("address"));
     const tx = await Token.approve(data.get("address"), data.get("amount"));
-    console.log(tx);
+    // console.log(tx);
   };
 
   return (

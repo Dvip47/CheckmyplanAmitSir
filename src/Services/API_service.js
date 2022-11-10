@@ -29,6 +29,7 @@ export const getRequest = (endpoint, data = null) =>
   axios
     .get(`${baseURL}${endpoint}?${new URLSearchParams(data).toString()}`, {
       headers: getHeaders(),
+      mode: "no-cors",
     })
     .then((res) => res.data)
     .catch((err) => {
@@ -38,7 +39,10 @@ export const getRequest = (endpoint, data = null) =>
 
 export const postRequest = async (endpoint, data = null) => {
   return await axios
-    .post(baseURL + endpoint, data, { headers: postHeaders() })
+    .post(baseURL + endpoint, data, {
+      headers: postHeaders(),
+      mode: "no-cors",
+    })
     .then((res) => res.data)
     .catch((err) => {
       console.log(`Error in post request to entpoint ${endpoint}`, err);

@@ -8139,6 +8139,12 @@ label {
 
 .modal {
   text-align: left;
+  background: #000000ad;
+}
+
+.modal-title {
+  margin-top: 0;
+  color: #fff;
 }
 
 .modal .modal-content {

@@ -13,10 +13,10 @@ function Order_Summary() {
   async function getData() {
     let _data = await postRequest("/api/OrderSummary");
     if (_data.statusCode === 1) {
-      console.log("result", _data.result);
+      // console.log("result", _data.result);
       setOrder(_data.result);
     }
-    console.log("_data : ", order);
+    // console.log("_data : ", order);
   }
 
   const tableHead = [

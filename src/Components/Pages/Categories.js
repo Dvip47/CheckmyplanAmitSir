@@ -13,10 +13,10 @@ function Categories() {
   async function getData() {
     let data = await postRequest("/api/CategoryDetails");
     if (data.statusCode === 1) {
-      console.log("result", data.result);
+      // console.log("result", data.result);
       setCategory(data.result);
     }
-    console.log("data", Category);
+    // console.log("data", Category);
   }
 
   const tableHeaders = [

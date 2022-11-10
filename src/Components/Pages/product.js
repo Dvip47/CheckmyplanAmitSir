@@ -15,10 +15,10 @@ function Product() {
   async function getData() {
     let _data = await postRequest("/api/Products");
     if (_data.statusCode === 1) {
-      console.log("result", _data.result);
+      // console.log("result", _data.result);
       setProduct(_data.result);
     }
-    console.log("data", product);
+    // console.log("data", product);
   }
 
   const tableHead = [

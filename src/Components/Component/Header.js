@@ -25,8 +25,8 @@ function Topbar() {
         <Navbar />
         {/* <!-- end navbar-custom --> */}
       </header>
-      <Body />
-      <Footer />
+      {/* <Body />
+      <Footer /> */}
     </div>
   );
 }

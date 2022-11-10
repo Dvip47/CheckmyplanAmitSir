@@ -4,6 +4,10 @@ import { postRequest } from "../../Services/API_service";
 import { setCookie } from "../Library/Cookies";
 import { useNavigate } from "react-router";
 import { DATACONSTANT } from "../../constants/data.constant";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { NavLink } from "react-router-dom";
+
 const ColoredLine = ({ color }) => (
   <hr
     style={{
@@ -19,20 +23,34 @@ export default function Generate_Token() {
   const [formData, setFormData] = useState();
 
   async function getToken(e) {
-    e.preventDefault();
-    var postResponse = await postRequest(DATACONSTANT.LOGIN_URL, {
-      // loginTypeID: 1,
-      Domain: DATACONSTANT.DOMAIN_NAME,
-      UserID: formData.email,
-      Password: formData.password,
-    });
-    // localStorage.setItem("item", "enter");
-    // return navigate("/", { state: "tool" });
-    console.log("data_1:", postResponse.data);
-    if (postResponse?.statuscode === 1) {
-      setCookie(DATACONSTANT.SETCOOKIE, JSON.stringify(postResponse.data), 30);
+    try {
+      e.preventDefault();
+      var postResponse = await postRequest(DATACONSTANT.LOGIN_URL, {
+        domain: DATACONSTANT.DOMAIN_NAME,
+        userID: formData.email,
+        Password: formData.password,
+      });
       // localStorage.setItem("item", "enter");
-      return navigate("/");
+      // return navigate("/", { state: "tool" });
+      // console.log("data_1:", postResponse.data);
+      if (postResponse?.statuscode === 1) {
+        toast.success(postResponse.msg);
+        setCookie(
+          DATACONSTANT.SETCOOKIE,
+          JSON.stringify(postResponse.data),
+          30
+        );
+        // localStorage.setItem("item", "enter");
+        return navigate("/");
+      } else {
+        toast.error(postResponse.msg);
+      }
+    } catch (ex) {
+      toast.error(ex.code);
+      return {
+        statuscode: -1,
+        msg: ex.code,
+      };
     }
   }
 
@@ -41,13 +59,14 @@ export default function Generate_Token() {
   };
   return (
     <div>
-      <div className="accountbg"></div>
+      <ToastContainer />
+      {/* <div className="accountbg"></div> */}
       <div className="wrapper-page">
         <div className="card">
           <div className="card-body">
             <div className="text-center m-b-15">
               <a href="index.html" className="logo logo-admin">
-                <img src="./logo.png" height="24" alt="logo" />
+                <img src="./logo2.png" style={{ width: "211px" }} alt="logo" />
               </a>
             </div>
             <div className="p-3">
@@ -56,7 +75,7 @@ export default function Generate_Token() {
                   <div className="col-12">
                     <input
                       className="form-control"
-                      type="tel"
+                      type="text"
                       required=""
                       placeholder="Email Address"
                       name="email"
@@ -107,16 +126,16 @@ export default function Generate_Token() {
                 </div>
                 <div className="form-group m-t-10 mb-0 row">
                   <div className="col-sm-7 m-t-20">
-                    <a href="pages-recoverpw.html" className="text-muted">
+                    <NavLink to="/Forgot_password" className="text-muted">
                       <i className="mdi mdi-lock"></i>{" "}
                       <small>Forgot your password ?</small>
-                    </a>
+                    </NavLink>
                   </div>
                   <div className="col-sm-5 m-t-20">
-                    <a href="pages-register.html" className="text-muted">
+                    <NavLink to="/Register" className="text-muted">
                       <i className="mdi mdi-account-circle"></i>{" "}
                       <small>Create account ?</small>
-                    </a>
+                    </NavLink>
                   </div>
                 </div>
               </form>
@@ -127,3 +146,7 @@ export default function Generate_Token() {
     </div>
   );
 }
+
+// <NavLink to="/">
+//   <i className="dripicons-device-desktop"></i>Plan Types
+// </NavLink>;

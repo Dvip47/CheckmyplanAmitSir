@@ -1,0 +1,132 @@
+body {
+  background-color: #e6ebf4;
+}
+
+.card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 5px 6px 6px 2px #e9ecef;
+}
+.heading {
+  font-size: 23px;
+  font-weight: 00;
+}
+.text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #b1b6bd;
+}
+.pricing {
+  border: 2px solid #304ffe;
+  background-color: #f2f5ff;
+}
+.business {
+  font-size: 20px;
+  font-weight: 500;
+}
+.plan {
+  color: #aba4a4;
+}
+.dollar {
+  font-size: 16px;
+  color: #6b6b6f;
+}
+.amount {
+  font-size: 50px;
+  font-weight: 500;
+}
+.year {
+  font-size: 20px;
+  color: #6b6b6f;
+  margin-top: 19px;
+}
+.detail {
+  font-size: 22px;
+  font-weight: 500;
+}
+.cvv {
+  height: 44px;
+  width: 73px;
+  border: 2px solid #eee;
+}
+.cvv:focus {
+  box-shadow: none;
+  border: 2px solid #304ffe;
+}
+.email-text {
+  height: 55px;
+  border: 2px solid #eee;
+}
+.email-text:focus {
+  box-shadow: none;
+  border: 2px solid #304ffe;
+}
+.payment-button {
+  height: 70px;
+  font-size: 20px;
+}
+.form-check {
+  min-height: 1.5rem;
+}
+img {
+  vertical-align: middle;
+  border-style: none;
+  width: 0pxo;
+  width: 51px;
+}
+.form-check-input[type="radio"]:checked {
+  background-image: none;
+  background-color: #fff;
+}
+.form-check-input[type="radio"] {
+  border-radius: 50%;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.125em;
+  margin-right: 4px;
+  width: 13px;
+}
+.form-check-input:checked {
+  border-color: #3b71ca;
+}
+.form-check-input:disabled {
+  pointer-events: none;
+  filter: none;
+  opacity: 0.5;
+}
+label {
+  cursor: default;
+}
+
+.my-badge {
+  display: flex !important;
+  flex-direction: column !important;
+  margin-left: 25px;
+}
+
+.my-badge input.form-check-input {
+  margin-right: 10px;
+}
+.cus-input {
+  position: relative;
+  left: -11px;
+
+  top: 23px;
+}
+.modal {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 100050;
+  width: 100%;
+  height: 100%;
+  outline: 0px;
+}
+.modal {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#myModal::-webkit-scrollbar {
+  display: none;
+}

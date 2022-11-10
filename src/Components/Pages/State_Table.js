@@ -23,7 +23,7 @@ export const State_Table = () => {
     const response = await res.json();
     setData([...response.data]);
   };
-  console.log(data);
+  // console.log(data);
 
   const tableHead = [
     { title: "id", width: "5%" },
