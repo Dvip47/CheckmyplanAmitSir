@@ -22,4 +22,10 @@ export const DATACONSTANT = {
   LOGOUT_URL: "/ApiUserAfterLogin/LogoutForAPI",
 
   CREATEACCOUNT: "/ApiUserAfterLogin/SignupForAPI",
+
+  PAYMENTGATEWAY: "/ApiUserAfterLogin/ChoosePaymentGatewayForApi",
+
+  REDIRECTTOPAYMENT: "/ApiUserAfterLogin/PGRedirectForApi",
+
+  FORGOTPASSWORD: "/ApiUserAfterLogin/ForgetPassword",
 };

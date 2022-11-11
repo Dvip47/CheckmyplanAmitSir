@@ -110,7 +110,7 @@ export default function PlanTypes() {
         SessionID: __x?.sessionID,
         Session: __x?.session,
       });
-      // console.log("plans", postResponse);
+      console.log("plans", postResponse);
       setData(postResponse?.data);
     } catch (error) {
       return {
@@ -130,30 +130,41 @@ export default function PlanTypes() {
     }
   }, [info, x]);
 
+  <p id="demo"></p>;
+
   async function buyPlan(pId) {
-    try {
-      let __x = JSON.parse(x);
-      var postResponse = await postRequest(DATACONSTANT.BUY_URL, {
-        version: DATACONSTANT.Version,
-        APPID: DATACONSTANT.APPID,
-        UserID: __x?.userID,
-        PackageId: pId,
-        SessionID: __x?.sessionID,
-        Session: __x?.session,
-      });
-      if (postResponse?.statuscode == "-1") {
-        toast.error(postResponse.msg);
-      } else {
-        toast.success(postResponse.msg);
+    let text = "Press a button!\nEither OK or Cancel.";
+    if (window.confirm(text) == true) {
+      try {
+        let __x = JSON.parse(x);
+        var postResponse = await postRequest(DATACONSTANT.BUY_URL, {
+          version: DATACONSTANT.Version,
+          APPID: DATACONSTANT.APPID,
+          UserID: __x?.userID,
+          PackageId: pId,
+          SessionID: __x?.sessionID,
+          Session: __x?.session,
+        });
+        if (postResponse?.statuscode == "-1") {
+          toast.error(postResponse.msg);
+        } else {
+          toast.success(postResponse.msg);
+        }
+        console.log("Buy plan", postResponse);
+      } catch (ex) {
+        toast.error(ex.code);
+        return {
+          statuscode: -1,
+          msg: ex.code,
+        };
       }
-    } catch (ex) {
-      toast.error(ex.code);
-      return {
-        statuscode: -1,
-        msg: ex.code,
-      };
+      text = "You pressed OK!";
+    } else {
+      text = "You canceled!";
     }
+    document.getElementById("demo").innerHTML = text;
   }
+
   return (
     <div>
       <ToastContainer />
@@ -179,59 +190,181 @@ export default function PlanTypes() {
         <div className="container">
           <div className="row">
             {data?.map((data, index) => {
-              return (
-                <div className="col-md-3" key={index}>
-                  <div className="generic_content clearfix">
-                    <div className="generic_head_price clearfix">
-                      <div className="box">
-                        <div className="ribbon ribbon-top-right">
-                          <span>{data.isActive ? "Active" : ""}</span>
+              if (data.isExpired === false && data.isPurchased === true) {
+                return (
+                  <div className="col-md-3" key={index}>
+                    <div className="generic_content clearfix">
+                      <div className="generic_head_price clearfix">
+                        <div className="box">
+                          <div className="ribbon ribbon-top-right">
+                            <span>{data.isActive ? "Active" : ""}</span>
+                          </div>
+                        </div>
+
+                        <div className="generic_price_tag clearfix">
+                          {/* <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2042px-WhatsApp.svg.png"> */}
                         </div>
                       </div>
 
-                      <div className="generic_price_tag clearfix">
-                        {/* <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2042px-WhatsApp.svg.png"> */}
+                      <div className="generic_feature_list">
+                        <h4>Rs: {data.packageCost}</h4>
+                        <ul>
+                          <li>
+                            <span>Package Id: {data.packageId}</span>
+                          </li>
+                          <li>
+                            <span>{data.slab}</span>
+                          </li>
+                          <li>
+                            <span>{data.remark}</span>
+                          </li>
+                          <li>
+                            <span>Validity: {data.validityInDays}</span>
+                          </li>
+                          <li>
+                            <span>Daily Hit Count: {data.dailyHitCount}</span>
+                          </li>
+                          <li>
+                            <span>Service: {data.serviceName}</span>
+                          </li>
+                        </ul>
                       </div>
-                    </div>
 
-                    <div className="generic_feature_list">
-                      <h4>Rs: {data.packageCost}</h4>
-                      <ul>
-                        <li>
-                          <span>Package Id: {data.packageId}</span>
-                        </li>
-                        <li>
-                          <span>{data.slab}</span>
-                        </li>
-                        <li>
-                          <span>{data.remark}</span>
-                        </li>
-                        <li>
-                          <span>Validity: {data.validityInDays}</span>
-                        </li>
-                        <li>
-                          <span>Daily Hit Count: {data.dailyHitCount}</span>
-                        </li>
-                        <li>
-                          <span>Service: {data.serviceName}</span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div className="generic_price_btn clearfix">
-                      <a
-                        className="btn mr-2"
-                        onClick={() => buyPlan(data.packageId)}
-                      >
-                        Buy Plan
-                      </a>
-                      <a className="btn-primary btn text-white " href="">
-                        Renew
-                      </a>
+                      {/* <div className="generic_price_btn clearfix">
+                        <a
+                          data-toggle="confirmation"
+                          className="btn mr-2"
+                          onClick={() => buyPlan(data.packageId)}
+                        >
+                          Buy Plan
+                        </a>
+                        <a className="btn-primary btn text-white " href="">
+                          Renew
+                        </a>
+                      </div> */}
                     </div>
                   </div>
-                </div>
-              );
+                );
+              } else if (
+                data.isExpired === false &&
+                data.isPurchased === false &&
+                data.isActive === true
+              ) {
+                return (
+                  <div className="col-md-3" key={index}>
+                    <div className="generic_content clearfix">
+                      <div className="generic_head_price clearfix">
+                        <div className="box">
+                          {/* <div className="ribbon ribbon-top-right">
+                            <span>{data.isActive ? "Active" : ""}</span>
+                          </div> */}
+                        </div>
+
+                        <div className="generic_price_tag clearfix">
+                          {/* <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2042px-WhatsApp.svg.png"> */}
+                        </div>
+                      </div>
+
+                      <div className="generic_feature_list">
+                        <h4>Rs: {data.packageCost}</h4>
+                        <ul>
+                          <li>
+                            <span>Package Id: {data.packageId}</span>
+                          </li>
+                          <li>
+                            <span>{data.slab}</span>
+                          </li>
+                          <li>
+                            <span>{data.remark}</span>
+                          </li>
+                          <li>
+                            <span>Validity: {data.validityInDays}</span>
+                          </li>
+                          <li>
+                            <span>Daily Hit Count: {data.dailyHitCount}</span>
+                          </li>
+                          <li>
+                            <span>Service: {data.serviceName}</span>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div
+                        className="generic_price_btn clearfix"
+                        onClick={() => {
+                          buyPlan(data.packageId);
+                        }}
+                      >
+                        <a data-toggle="confirmation" className="btn mr-2">
+                          Buy Plann
+                        </a>
+                        {/* <a className="btn-primary btn text-white " href="">
+                          Renew
+                        </a> */}
+                      </div>
+                    </div>
+                  </div>
+                );
+              } else if (
+                data.isExpired === true &&
+                data.isPurchased === true &&
+                data.isActive === false
+              ) {
+                return (
+                  <div className="col-md-3" key={index}>
+                    <div className="generic_content clearfix">
+                      <div className="generic_head_price clearfix">
+                        <div className="box">
+                          {/* <div className="ribbon ribbon-top-right">
+                            <span>{data.isActive ? "Active" : ""}</span>
+                          </div> */}
+                        </div>
+
+                        <div className="generic_price_tag clearfix">
+                          {/* <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2042px-WhatsApp.svg.png"> */}
+                        </div>
+                      </div>
+
+                      <div className="generic_feature_list">
+                        <h4>Rs: {data.packageCost}</h4>
+                        <ul>
+                          <li>
+                            <span>Package Id: {data.packageId}</span>
+                          </li>
+                          <li>
+                            <span>{data.slab}</span>
+                          </li>
+                          <li>
+                            <span>{data.remark}</span>
+                          </li>
+                          <li>
+                            <span>Validity: {data.validityInDays}</span>
+                          </li>
+                          <li>
+                            <span>Daily Hit Count: {data.dailyHitCount}</span>
+                          </li>
+                          <li>
+                            <span>Service: {data.serviceName}</span>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div className="generic_price_btn clearfix">
+                        {/* <a
+                          data-toggle="confirmation"
+                          className="btn mr-2"
+                          onClick={() => buyPlan(data.packageId)}
+                        >
+                          Buy Plan
+                        </a> */}
+                        <a className="btn-primary btn text-white " href="">
+                          Renew
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
             })}
           </div>
         </div>

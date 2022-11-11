@@ -24,14 +24,6 @@ export default function Login() {
     };
     setCookie(".milkyfie_user", JSON.stringify(data), 30);
     return navigate("/");
-    // var data = await postRequest(
-    //   `/Account/ApiLogin?MobileNo=${formData.email}&Password=${formData.password}`
-    // );
-    // console.log("data:", data);
-    // if (data.statusCode === 1) {
-    //   setCookie(".milkyfie_user", JSON.stringify(data.result), 30);
-    //   return navigate("dashboard");
-    // }
   }
 
   const inputHandler = (e) => {

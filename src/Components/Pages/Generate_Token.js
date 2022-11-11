@@ -5,7 +5,6 @@ import { setCookie } from "../Library/Cookies";
 import { useNavigate } from "react-router";
 import { DATACONSTANT } from "../../constants/data.constant";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { NavLink } from "react-router-dom";
 
 const ColoredLine = ({ color }) => (
@@ -30,9 +29,7 @@ export default function Generate_Token() {
         userID: formData.email,
         Password: formData.password,
       });
-      // localStorage.setItem("item", "enter");
-      // return navigate("/", { state: "tool" });
-      // console.log("data_1:", postResponse.data);
+
       if (postResponse?.statuscode === 1) {
         toast.success(postResponse.msg);
         setCookie(
@@ -77,7 +74,7 @@ export default function Generate_Token() {
                       className="form-control"
                       type="text"
                       required=""
-                      placeholder="Email Address"
+                      placeholder="Login ID"
                       name="email"
                       onChange={inputHandler}
                     />
