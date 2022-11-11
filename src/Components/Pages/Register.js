@@ -27,8 +27,8 @@ const Register = () => {
         },
       });
 
-      console.log("data", postResponse);
-      if (postResponse?.statuscode === 1) {
+      console.log("Signup data", postResponse);
+      if (postResponse?.statusCode === 1) {
         toast.success(postResponse.msg);
         setCookie(
           DATACONSTANT.SETCOOKIE,
@@ -39,7 +39,6 @@ const Register = () => {
         return navigate("/");
       } else {
         toast.error(postResponse.msg);
-        return navigate("/");
       }
     } catch (error) {
       return {
@@ -55,7 +54,7 @@ const Register = () => {
 
   return (
     <div>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <div class="wrapper-page">
         <div class="card">
           <div class="card-body">
@@ -65,10 +64,7 @@ const Register = () => {
               </a>
             </div>
             <div class="p-3">
-              <form
-                class="form-horizontal"
-                action="https://mannatthemes.com/zoogler/horizontal/index.html"
-              >
+              <form class="form-horizontal" action="">
                 <div class="form-group row">
                   <div class="col-12">
                     <input
@@ -76,7 +72,7 @@ const Register = () => {
                       type="text"
                       required=""
                       placeholder="Name"
-                      name="Name"
+                      name="name"
                       onChange={inputHandler}
                     />
                   </div>

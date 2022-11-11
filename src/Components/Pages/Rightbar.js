@@ -5,8 +5,7 @@ import { DATACONSTANT } from "../../constants/data.constant";
 import { postRequest } from "../../Services/API_service";
 import delete_cookie, { getCookie } from "../Library/Cookies";
 
-function Rightbar() {
-  const [show, setShow] = useState(false);
+function Rightbar({ show1, setShow1 }) {
   const [data, setData] = useState(true);
 
   const navigate = useNavigate();
@@ -36,7 +35,7 @@ function Rightbar() {
         SessionID: __x?.sessionID,
         Session: __x?.session,
       });
-      // console.log("balance", postResponse?.bBalance);
+      console.log("balance", postResponse?.bBalance);
       setBalance(postResponse?.bBalance);
     } catch (error) {
       return {
@@ -81,6 +80,18 @@ function Rightbar() {
 
   return (
     <div>
+      {show1 && (
+        <div
+          style={{
+            display: "flex",
+            height: "100vh",
+            width: "100vw",
+            position: "absolute",
+          }}
+          onClick={() => setShow1(false)}
+        ></div>
+      )}
+
       <div className="menu-extras topbar-custom">
         <ul className="list-unstyled float-right mb-0">
           {/* <!-- language--> */}
@@ -109,7 +120,7 @@ function Rightbar() {
           </li>
           {/* <!-- User--> */}
           <li
-            onClick={() => setShow(!show)}
+            onClick={() => setShow1(true)}
             class="dropdown notification-list show"
           >
             <a
@@ -122,9 +133,13 @@ function Rightbar() {
             >
               <img src={AVATAR1} alt="user" class="rounded-circle" />
             </a>
-            {show && (
+            {show1 && (
               <div
-                class="dropdown-menu dropdown-menu-right profile-dropdown border-0 show"
+                class={
+                  !show1
+                    ? "dropdown-menu dropdown-menu-right profile-dropdown border-0"
+                    : " dropdown-menu dropdown-menu-right profile-dropdown border-0 show"
+                }
                 x-placement="top-end"
                 style={{
                   position: "absolute",
