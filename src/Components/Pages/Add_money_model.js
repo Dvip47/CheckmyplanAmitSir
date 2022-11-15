@@ -4,7 +4,6 @@ import { getCookie } from "../Library/Cookies";
 import { DATACONSTANT } from "../../constants/data.constant";
 import { postRequest } from "../../Services/API_service";
 import wallet from "../../assets/images/wallet.png";
-import PaymentGatewayModal from "./PaymentGatewayModal";
 
 function Add_Money_model({
   setShow,

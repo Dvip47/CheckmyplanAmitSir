@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function PlanTypes() {
+export default function PlanTypes({ setShow }) {
   useEffect(() => {
     getPlan();
   }, []);
@@ -293,10 +293,11 @@ export default function PlanTypes() {
                         className="generic_price_btn clearfix"
                         onClick={() => {
                           buyPlan(data.packageId);
+                          // setShow(false);
                         }}
                       >
                         <a data-toggle="confirmation" className="btn mr-2">
-                          Buy Plann
+                          Buy Plan
                         </a>
                         {/* <a className="btn-primary btn text-white " href="">
                           Renew

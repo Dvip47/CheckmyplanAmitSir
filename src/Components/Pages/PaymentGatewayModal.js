@@ -9,9 +9,16 @@ function PaymentGatewayModal({ setPaymentGatewayState, input }) {
   useEffect(() => {
     getPaymentGateway();
   }, []);
+  useEffect(() => {
+    window.addEventListener("load", function (e) {
+      alert("------");
+      e.preventDefault();
+      alert("hiiiiii");
+    });
+  }, []);
   const [chooseMethod, setChooseMethod] = useState(0);
   const [method, setMethod] = useState([]);
-
+  const [loader, setLoader] = useState(false);
   async function getPaymentGateway() {
     try {
       let x = getCookie(DATACONSTANT.SETCOOKIE);
@@ -32,7 +39,7 @@ function PaymentGatewayModal({ setPaymentGatewayState, input }) {
         let x = getCookie(DATACONSTANT.SETCOOKIE);
         let __x = JSON.parse(x);
         var postResponse2 = await postRequest(DATACONSTANT.REDIRECTTOPAYMENT, {
-          version: DATACONSTANT.Version,
+          Version: DATACONSTANT.Version,
           APPID: DATACONSTANT.APPID,
           UserID: __x?.userID,
           SessionID: __x?.sessionID,
@@ -46,13 +53,16 @@ function PaymentGatewayModal({ setPaymentGatewayState, input }) {
           postResponse2.data.url != null &&
           postResponse2.data.keyVals != null
         ) {
-          window.open(
+          let newWindow = window.open(
             postResponse2.data.url,
-            "_blank",
-            "height: 90px",
-            "width: 10px",
-            "noopener,noreferrer"
+            "example",
+            "width=600,height=600"
           );
+          console.log("new", newWindow);
+          newWindow.onbeforeunload = function () {
+            console.log("true");
+            alert(newWindow.closed); // true
+          };
         } else {
           toast.error("Service data not found [pg]");
         }
@@ -67,36 +77,63 @@ function PaymentGatewayModal({ setPaymentGatewayState, input }) {
     }
   }
 
-  async function redirectToPayment() {
+  async function redirectToPayment(i) {
+    setLoader(true);
     try {
       let x = getCookie(DATACONSTANT.SETCOOKIE);
       let __x = JSON.parse(x);
+
       var postResponse2 = await postRequest(DATACONSTANT.REDIRECTTOPAYMENT, {
-        version: DATACONSTANT.Version,
+        Version: DATACONSTANT.Version,
         APPID: DATACONSTANT.APPID,
-        UserID: __x?.userID,
-        SessionID: __x?.sessionID,
-        Session: __x?.session,
-        Amount: input.amount,
-        OID: input.oid,
-        WID: 1,
-        PGID: method[chooseMethod].id,
-        UPIGID: method[chooseMethod].pgType,
+        UserID: String(__x?.userID),
+        SessionID: String(__x?.sessionID),
+        Session: String(__x?.session),
+        Amount: String(input.amount),
+        OID: String(input.oid),
+        WID: String(1),
+        PGID: String(method[i].pgType),
+        UPIGID: String(method[i].id),
       });
       console.log("redirect after gateway", postResponse2);
       if (
-        postResponse2.data.url != null &&
-        postResponse2.data.keyVals != null
+        postResponse2.data.url != null
+        // postResponse2.data.keyVals != null
       ) {
-        window.open(
+        setPaymentGatewayState(false);
+        // window.open(
+        //   postResponse2.data.url,
+        //   "_blank",
+        //   "height: 90px",
+        //   "width: 10px",
+        //   "noopener,noreferrer"
+        // );
+
+        let newWindow = window.open(
           postResponse2.data.url,
-          "_blank",
-          "height: 90px",
-          "width: 10px",
-          "noopener,noreferrer"
+          "example",
+          "width=600,height=600"
         );
+        setTimeout(() => {
+          let inn = setInterval(async () => {
+            if (newWindow?.window?.closed == false) {
+              console.log("new", newWindow.window.closed);
+            } else {
+              const res = await postRequest(
+                `/ApiUserAfterLogin/UPIStatusCheck?TID=${postResponse2?.data?.tid}`
+              );
+              if (res?.transactionStatus === "TTransaction Successfull!") {
+                toast.success(res?.transactionStatus);
+              } else {
+                toast.error(res?.transactionStatus);
+              }
+              clearInterval(inn);
+            }
+          }, 1000);
+        }, 1000);
       } else {
         toast.error("Service data not found [pg]");
+        // should manage error if there is no gateway found abouve msg else actual msg will be print
       }
     } catch (error) {
       return {
@@ -104,6 +141,7 @@ function PaymentGatewayModal({ setPaymentGatewayState, input }) {
         msg: error.code,
       };
     }
+    setLoader(false);
   }
   return (
     <div class="modal show" style={{ display: "block" }} id="myModal">
@@ -123,6 +161,27 @@ function PaymentGatewayModal({ setPaymentGatewayState, input }) {
           <div class="modal-body">
             <div class="container">
               <div class="card p-3">
+                {loader && (
+                  <div
+                    style={{
+                      top: "-165px",
+                      left: "-555px",
+                      position: "absolute",
+                      height: "100vh",
+                      width: "100vw",
+                      zIndex: 999,
+                      backgroundColor: "rgba(0,0,0,0.3)",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      color: "#fff",
+                    }}
+                  >
+                    <div class="spinner-border m-5" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                )}
                 {method?.map((data, index) => {
                   return (
                     <div
@@ -133,7 +192,7 @@ function PaymentGatewayModal({ setPaymentGatewayState, input }) {
                         <button
                           type="button"
                           class="btn btn-primary btn- btn-block btn-lg"
-                          onClick={redirectToPayment}
+                          onClick={() => redirectToPayment(index)}
                         >
                           {data.pg}
                         </button>

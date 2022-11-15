@@ -5,7 +5,7 @@ export const DATACONSTANT = {
 
   LOGIN_URL: "/ApiUserAfterLogin/APIUserLogin",
 
-  BASE_URL: "http://mitraservice.in",
+  BASE_URL: "https://mitraservice.in",
 
   BUY_URL: "/ApiUserAfterLogin/VASBuyOrRenewPlanForApp",
 
