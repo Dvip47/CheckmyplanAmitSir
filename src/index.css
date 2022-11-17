@@ -1,13 +1,51 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+}
+
+.mobile-on {
+  display: none;
+}
+
+.mob-off {
+  display: block;
+}
+
+@media (min-width: 200px) and (max-width: 599px) {
+  .mobile-on {
+    display: block;
+  }
+
+  #generic_price_table {
+    margin: 165px 0 0px 0 !important;
+  }
+
+  .add-btn {
+    margin-left: 20px;
+  }
+
+  .mob-off {
+    display: none !important;
+  }
+
+  #navigation {
+    position: static !important;
+  }
 }

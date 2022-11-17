@@ -3219,7 +3219,7 @@ body {
     top: 60px;
     left: 0;
     right: 0;
-    display: none;
+    /* display: none; */
     height: auto;
     padding-bottom: 0;
     overflow: auto;
@@ -3256,6 +3256,8 @@ body {
 @media (max-width: 620px) {
   .topbar-main .logo {
     font-size: 28px !important;
+    text-align: center;
+    width: 100%;
   }
   .notification-list .noti-icon {
     font-size: 24px;
@@ -3651,9 +3653,9 @@ body {
   color: #2d3b48;
 }
 
-.modal-dialog {
+/* .modal-dialog {
   position: absolute;
   left: 520px;
   top: 0px;
   z-index: 2;
-}
+} */

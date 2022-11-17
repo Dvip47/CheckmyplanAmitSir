@@ -1,11 +1,11 @@
 export const DATACONSTANT = {
   SETCOOKIE: ".plan_info",
 
-  DOMAIN_NAME: "mitraservice.in",
+  DOMAIN_NAME: "admin.checkmyplan.in",
 
   LOGIN_URL: "/ApiUserAfterLogin/APIUserLogin",
 
-  BASE_URL: "http://mitraservice.in",
+  BASE_URL: "http://admin.checkmyplan.in",
 
   BUY_URL: "/ApiUserAfterLogin/VASBuyOrRenewPlanForApp",
 

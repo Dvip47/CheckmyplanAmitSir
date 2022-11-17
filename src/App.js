@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import BasicExample from "./Components/Pages/Country_Table";
-import State_Table from "./Components/Pages/State_Table";
+
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { getCookie } from "./Components/Library/Cookies";
-import Product from "./Components/Pages/product";
-import Generate_Token from "./Components/Pages/Generate_Token";
-import Categories from "./Components/Pages/Categories";
+import Login from "./Components/Pages/Login";
 import Order_Summary from "./Components/Pages/Order_Summary";
 import PlanTypes from "./Components/Pages/plantypes";
 import Forgot_password from "./Components/Pages/Forgot_password";
@@ -17,8 +14,13 @@ import { DATACONSTANT } from "./constants/data.constant";
 function App() {
   const navigate = useNavigate();
   const [page, setPage] = useState(true);
+
   let x = getCookie(DATACONSTANT.SETCOOKIE);
   useEffect(() => {
+    window.addEventListener("beforeunload", (e) => {
+      e.preventDefault();
+      alert("hiiiii");
+    });
     // console.log(x);
     if (!getCookie(DATACONSTANT.SETCOOKIE)) {
       setPage(false);
@@ -28,24 +30,16 @@ function App() {
       return navigate("/");
     }
   }, [page, x]);
-
-  const location = useLocation();
-
   return (
     <div>
-      {/* <Test data={{ Name: "Nikhil Chauhan", Age: 22, Hometown: "Aligarh" }} /> */}
       {page ? (
         <Routes>
           <Route exact path="/" element={<PlanTypes />} />
-          <Route exact path="/country" element={<BasicExample />} />
-          <Route exact path="/state" element={<State_Table />} />
-          <Route exact path="/product" element={<Product />} />
-          <Route exact path="/Category" element={<Categories />} />
           <Route exact path="/Order_Summary" element={<Order_Summary />} />
         </Routes>
       ) : (
         <Routes>
-          <Route exact path="/" element={<Generate_Token />} />
+          <Route exact path="/" element={<Login />} />
           <Route exact path="/Forgot_password" element={<Forgot_password />} />
           <Route exact path="/Register" element={<Register />} />
         </Routes>
@@ -55,3 +49,5 @@ function App() {
 }
 
 export default App;
+
+// "proxy": "http://admin.checkmyplan.in",
