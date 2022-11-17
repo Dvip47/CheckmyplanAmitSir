@@ -5,7 +5,14 @@ import { DATACONSTANT } from "../../constants/data.constant";
 import { postRequest } from "../../Services/API_service";
 import delete_cookie, { getCookie } from "../Library/Cookies";
 
-function Rightbar({ show1, setShow1 }) {
+function Rightbar({
+  show1,
+  setShow1,
+  setShow,
+  getBalance,
+  balance,
+  setBalance,
+}) {
   const [data, setData] = useState(true);
 
   const navigate = useNavigate();
@@ -22,28 +29,6 @@ function Rightbar({ show1, setShow1 }) {
   useEffect(() => {
     getBalance();
   }, []);
-
-  const [balance, setBalance] = useState([]);
-
-  async function getBalance() {
-    try {
-      let __x = JSON.parse(x);
-      var postResponse = await postRequest(DATACONSTANT.BALANCE_URL, {
-        version: DATACONSTANT.Version,
-        APPID: DATACONSTANT.APPID,
-        UserID: __x?.userID,
-        SessionID: __x?.sessionID,
-        Session: __x?.session,
-      });
-      console.log("balance", postResponse?.bBalance);
-      setBalance(postResponse?.bBalance);
-    } catch (error) {
-      return {
-        statuscode: -1,
-        msg: error.code,
-      };
-    }
-  }
 
   async function getRemoveCookies() {
     await delete_cookie(".plan_info");
@@ -95,7 +80,19 @@ function Rightbar({ show1, setShow1 }) {
       <div className="menu-extras topbar-custom">
         <ul className="list-unstyled float-right mb-0">
           {/* <!-- language--> */}
-
+          {/* <li className="mobile-on" onClick={() => setShow(true)}>
+            <a
+              className="mt-3 btn btn-info btn-sm mr-2"
+              href="#"
+              role="button"
+              aria-haspopup="false"
+              aria-expanded="false"
+            >
+              <span>
+                <i className="fas fa-wallet"></i> &nbsp;Add Money
+              </span>
+            </a>
+          </li> */}
           {/* <!-- notification--> */}
           <li className="dropdown notification-list">
             <span
@@ -137,36 +134,25 @@ function Rightbar({ show1, setShow1 }) {
               <div
                 class={
                   !show1
-                    ? "dropdown-menu dropdown-menu-right profile-dropdown border-0"
-                    : " dropdown-menu dropdown-menu-right profile-dropdown border-0 show"
+                    ? "dropdown-menu dropdown-menu-right profile-dropdown border-0 dropdown-menu-right"
+                    : " dropdown-menu dropdown-menu-right profile-dropdown border-0 dropdown-menu-right show"
                 }
                 x-placement="top-end"
-                style={{
-                  position: "absolute",
-                  transform: "translate3d(-104px, 5px, 0px)",
-                  top: "0px",
-                  left: "0px",
-                  willChange: "transform",
-                }}
               >
                 <div class="dropdown-item noti-title">
                   <h5>Welcome</h5>
                 </div>
                 <a class="dropdown-item" href="#">
-                  <i class="mdi mdi-account-circle m-r-8 text-muted"></i>
-                  <div className="cus-id">
-                    <p>
-                      {" "}
-                      <span>UserID:</span> {JSON.parse(x)?.userID},
-                    </p>
-                    <p>
-                      <span>Name:</span> {JSON.parse(x)?.name},
-                    </p>
-                    <p>
-                      <span>Email:</span>
-                    </p>
-                    <p>{JSON.parse(x)?.emailID}</p>
-                  </div>
+                  {" "}
+                  <span>UserID:</span> {JSON.parse(x)?.userID},
+                </a>
+                <a class="dropdown-item" href="#">
+                  {" "}
+                  <span>Name:</span> {JSON.parse(x)?.name},
+                </a>
+                <a class="dropdown-item" href="#">
+                  {" "}
+                  <span>Email:</span> {JSON.parse(x)?.emailID}
                 </a>
                 <div class="dropdown-divider"></div>
                 {/* <a class="dropdown-item" href="http://checkmyplan.in/"> */}
@@ -175,15 +161,6 @@ function Rightbar({ show1, setShow1 }) {
                 </a>
               </div>
             )}
-          </li>
-          <li className="menu-item">
-            {/* <!-- Mobile menu toggle-->  */}
-            <a className="navbar-toggle nav-link">
-              <div className="lines">
-                <span></span> <span></span> <span></span>
-              </div>
-            </a>
-            {/* <!-- End mobile menu toggle--> */}
           </li>
         </ul>
       </div>

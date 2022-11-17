@@ -5,7 +5,12 @@ import { DATACONSTANT } from "../../constants/data.constant";
 import { postRequest } from "../../Services/API_service";
 import { toast } from "react-toastify";
 
-function PaymentGatewayModal({ setPaymentGatewayState, input }) {
+function PaymentGatewayModal({
+  setPaymentGatewayState,
+  input,
+  getBalance,
+  getPlan,
+}) {
   useEffect(() => {
     getPaymentGateway();
   }, []);
@@ -23,6 +28,7 @@ function PaymentGatewayModal({ setPaymentGatewayState, input }) {
     try {
       let x = getCookie(DATACONSTANT.SETCOOKIE);
       let __x = JSON.parse(x);
+
       var postResponse1 = await postRequest(DATACONSTANT.PAYMENTGATEWAY, {
         version: DATACONSTANT.Version,
         APPID: DATACONSTANT.APPID,
@@ -33,9 +39,11 @@ function PaymentGatewayModal({ setPaymentGatewayState, input }) {
         OID: input.oid,
         WID: 1,
       });
+      console.log("hello", postResponse1);
       if (postResponse1.data == null) {
         toast.error("Error Message here");
       } else if (postResponse1.data.length == 1) {
+        setMethod(postResponse1?.data);
         let x = getCookie(DATACONSTANT.SETCOOKIE);
         let __x = JSON.parse(x);
         var postResponse2 = await postRequest(DATACONSTANT.REDIRECTTOPAYMENT, {
@@ -49,10 +57,8 @@ function PaymentGatewayModal({ setPaymentGatewayState, input }) {
           WID: 1,
           PGID: postResponse1?.data[0]?.id,
         });
-        if (
-          postResponse2.data.url != null &&
-          postResponse2.data.keyVals != null
-        ) {
+        console.log("hii", postResponse2);
+        if (postResponse2.data.url != null) {
           let newWindow = window.open(
             postResponse2.data.url,
             "example",
@@ -60,11 +66,11 @@ function PaymentGatewayModal({ setPaymentGatewayState, input }) {
           );
           console.log("new", newWindow);
           newWindow.onbeforeunload = function () {
-            console.log("true");
-            alert(newWindow.closed); // true
+            // console.log("true");
+            // alert(newWindow.closed); // true
           };
         } else {
-          toast.error("Service data not found [pg]");
+          toast.error(postResponse2.data.msg);
         }
       } else {
         setMethod(postResponse1?.data);
@@ -96,18 +102,8 @@ function PaymentGatewayModal({ setPaymentGatewayState, input }) {
         UPIGID: String(method[i].id),
       });
       console.log("redirect after gateway", postResponse2);
-      if (
-        postResponse2.data.url != null
-        // postResponse2.data.keyVals != null
-      ) {
+      if (postResponse2.data.url != null) {
         setPaymentGatewayState(false);
-        // window.open(
-        //   postResponse2.data.url,
-        //   "_blank",
-        //   "height: 90px",
-        //   "width: 10px",
-        //   "noopener,noreferrer"
-        // );
 
         let newWindow = window.open(
           postResponse2.data.url,
@@ -124,6 +120,8 @@ function PaymentGatewayModal({ setPaymentGatewayState, input }) {
               );
               if (res?.transactionStatus === "TTransaction Successfull!") {
                 toast.success(res?.transactionStatus);
+                getBalance();
+                getPlan();
               } else {
                 toast.error(res?.transactionStatus);
               }
@@ -160,7 +158,7 @@ function PaymentGatewayModal({ setPaymentGatewayState, input }) {
           </div>
           <div class="modal-body">
             <div class="container">
-              <div class="card p-3">
+              <div>
                 {loader && (
                   <div
                     style={{

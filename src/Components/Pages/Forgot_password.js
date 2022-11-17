@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Forgot_password = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState();
+  const [disabled, setdisabled] = useState(false);
 
   const myStyle = {
     cursor: "pointer",
@@ -22,6 +23,7 @@ const Forgot_password = () => {
   async function forgotPWD(e) {
     try {
       e.preventDefault();
+      setdisabled(true);
       var postResponse = await postRequest(DATACONSTANT.FORGOTPASSWORD, {
         domain: DATACONSTANT.DOMAIN_NAME,
         Version: DATACONSTANT.Version,
@@ -34,12 +36,15 @@ const Forgot_password = () => {
       } else {
         toast.error("Invalid userID");
       }
-    } catch (error) {
+    } catch (ex) {
+      toast.error(ex.code);
+      setTimeout(() => setdisabled(false), 600);
       return {
         statuscode: -1,
-        msg: error.code,
+        msg: ex.code,
       };
     }
+    setTimeout(() => setdisabled(false), 600);
   }
 
   const inputHandler = (e) => {
@@ -69,7 +74,7 @@ const Forgot_password = () => {
               </a>
             </div>
             <div className="p-3">
-              <form className="form-horizontal" action="">
+              <form className="form-horizontal" action="" onSubmit={forgotPWD}>
                 <div className="alert alert-success alert-dismissible">
                   <span className="close" style={myStyle} onClick={cross}>
                     &times;
@@ -94,9 +99,9 @@ const Forgot_password = () => {
                     <button
                       className="btn btn-danger btn-block waves-effect waves-light"
                       type="submit"
-                      onClick={forgotPWD}
+                      disabled={disabled}
                     >
-                      Get Password
+                      {disabled ? "Requesting..." : "Forgot password"}
                     </button>
                   </div>
                 </div>

@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function PlanTypes({ setShow }) {
+export default function PlanTypes() {
   useEffect(() => {
     getPlan();
   }, []);
@@ -98,8 +98,12 @@ export default function PlanTypes({ setShow }) {
   //     },
   //   ],
   // };
+  const [input, setInput] = useState({
+    amount: "",
+    oid: 0,
+  });
   const [data, setData] = useState([]);
-
+  const [amount, setAmount] = useState(0);
   async function getPlan() {
     try {
       let __x = JSON.parse(x);
@@ -132,7 +136,7 @@ export default function PlanTypes({ setShow }) {
 
   <p id="demo"></p>;
 
-  async function buyPlan(pId) {
+  async function buyPlan(pId, amt) {
     let text = "Press a button!\nEither OK or Cancel.";
     if (window.confirm(text) == true) {
       try {
@@ -147,10 +151,18 @@ export default function PlanTypes({ setShow }) {
         });
         if (postResponse?.statuscode == "-1") {
           toast.error(postResponse.msg);
+          if (postResponse.msg === "Insufficient Balance!") {
+            setShow(true);
+            setInput((prev) => {
+              return {
+                ...prev,
+                amount: amt,
+              };
+            });
+          }
         } else {
           toast.success(postResponse.msg);
         }
-        console.log("Buy plan", postResponse);
       } catch (ex) {
         toast.error(ex.code);
         return {
@@ -164,17 +176,48 @@ export default function PlanTypes({ setShow }) {
     }
     document.getElementById("demo").innerHTML = text;
   }
+  const [show, setShow] = useState(false);
+  const [balance, setBalance] = useState([]);
+
+  async function getBalance() {
+    try {
+      let __x = JSON.parse(x);
+      var postResponse = await postRequest(DATACONSTANT.BALANCE_URL, {
+        version: DATACONSTANT.Version,
+        APPID: DATACONSTANT.APPID,
+        UserID: __x?.userID,
+        SessionID: __x?.sessionID,
+        Session: __x?.session,
+      });
+      console.log("balance", postResponse?.bBalance);
+      setBalance(postResponse?.bBalance);
+    } catch (error) {
+      return {
+        statuscode: -1,
+        msg: error.code,
+      };
+    }
+  }
 
   return (
     <div>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <header id="topnav">
         <div className="topbar-main">
           <div className="container-fluid">
             <Leftbar />
             <div className="clearfix"></div>
           </div>
-          <Navbar />
+          <Navbar
+            show={show}
+            setShow={setShow}
+            input={input}
+            setInput={setInput}
+            getBalance={getBalance}
+            balance={balance}
+            setBalance={setBalance}
+            getPlan={getPlan}
+          />
         </div>{" "}
       </header>{" "}
       <section id="generic_price_table">
@@ -292,7 +335,7 @@ export default function PlanTypes({ setShow }) {
                       <div
                         className="generic_price_btn clearfix"
                         onClick={() => {
-                          buyPlan(data.packageId);
+                          buyPlan(data.packageId, data.packageCost);
                           // setShow(false);
                         }}
                       >

@@ -4,8 +4,8 @@ import { postRequest } from "../../Services/API_service";
 import { setCookie } from "../Library/Cookies";
 import { useNavigate } from "react-router";
 import { DATACONSTANT } from "../../constants/data.constant";
-import { ToastContainer, toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const ColoredLine = ({ color }) => (
   <hr
@@ -17,13 +17,15 @@ const ColoredLine = ({ color }) => (
   />
 );
 
-export default function Generate_Token() {
+export default function Login({ buttonDisable, setButtonDisable }) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState();
-
+  const [disabled, setdisabled] = useState(false);
+  const [eyeIcon, setEyeIcon] = useState(false);
   async function getToken(e) {
     try {
       e.preventDefault();
+      setdisabled(true);
       var postResponse = await postRequest(DATACONSTANT.LOGIN_URL, {
         domain: DATACONSTANT.DOMAIN_NAME,
         userID: formData.email,
@@ -44,11 +46,13 @@ export default function Generate_Token() {
       }
     } catch (ex) {
       toast.error(ex.code);
+      setTimeout(() => setdisabled(false), 600);
       return {
         statuscode: -1,
         msg: ex.code,
       };
     }
+    setTimeout(() => setdisabled(false), 600);
   }
 
   const inputHandler = (e) => {
@@ -56,7 +60,7 @@ export default function Generate_Token() {
   };
   return (
     <div>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       {/* <div className="accountbg"></div> */}
       <div className="wrapper-page">
         <div className="card">
@@ -67,7 +71,10 @@ export default function Generate_Token() {
               </a>
             </div>
             <div className="p-3">
-              <form className="form-horizontal m-t-20" onSubmit={getToken}>
+              <form
+                className="form-horizontal m-t-20"
+                onSubmit={!buttonDisable ? getToken : null}
+              >
                 <div className="form-group row">
                   <div className="col-12">
                     <input
@@ -83,13 +90,20 @@ export default function Generate_Token() {
                 <div className="form-group row">
                   <div className="col-12">
                     <input
-                      className="form-control"
-                      type="password"
+                      className={`form-control`}
+                      type={eyeIcon ? "text" : "password"}
                       required=""
                       placeholder="Password"
                       name="password"
                       onChange={inputHandler}
                     />
+                    <span
+                      onClick={() => setEyeIcon(!eyeIcon)}
+                      toggle="#password-field"
+                      class={`fa fa-fw ${
+                        eyeIcon ? "fa-eye fa-eye-slash" : "fa-eye fa-eye"
+                      } field-icon toggle-password mr-2`}
+                    ></span>
                   </div>
                 </div>
                 <div className="form-group row">
@@ -114,10 +128,9 @@ export default function Generate_Token() {
                     <button
                       className="btn btn-danger btn-block waves-effect waves-light"
                       type="submit"
-                      onClick={getToken}
+                      disabled={disabled}
                     >
-                      Login
-                      {/* Generate Token */}
+                      {disabled ? "Requesting..." : "Login"}
                     </button>
                   </div>
                 </div>
@@ -143,7 +156,3 @@ export default function Generate_Token() {
     </div>
   );
 }
-
-// <NavLink to="/">
-//   <i className="dripicons-device-desktop"></i>Plan Types
-// </NavLink>;

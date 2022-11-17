@@ -92,7 +92,7 @@ function Add_Money_model({
           </div>
           <div class="modal-body">
             <div class="container">
-              <div class="card p-3">
+              <div class="">
                 <div class="pricing rounded d-flex justify-content-between">
                   <div class="images d-flex flex-row align-items-center p-3">
                     <img src={wallet} class="rounded" width="60" />
@@ -119,7 +119,7 @@ function Add_Money_model({
                   onChange={change}
                   value={input.amount}
                 />
-                <span class="detail mt-3">Payment details</span>
+                <h6 class="detail mt-3">Payment details</h6>
                 <div class="credit rounded mt-2 justify-content-between align-items-center">
                   {loader && "Loading..."}
                   {method?.map((data, index) => {
@@ -136,7 +136,7 @@ function Add_Money_model({
                           src="https://i.imgur.com/qHX7vY1.png"
                           class="rounded"
                           width="70"
-                          className="mr-2"
+                          className="mr-2 pt-2"
                         />
                         <div class="form-check my-badge">
                           <input
@@ -158,8 +158,9 @@ function Add_Money_model({
                     );
                   })}
 
-                  <div class="mt-3">
+                  <div class="mt-3 text-right">
                     <button
+                      className="btn btn-danger"
                       type="button"
                       // class="btn btn-primary btn- btn-block btn-lg"
                       onClick={() => {
