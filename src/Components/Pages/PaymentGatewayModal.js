@@ -6,14 +6,15 @@ import { postRequest } from "../../Services/API_service";
 import { toast } from "react-toastify";
 
 function PaymentGatewayModal({
-  setPaymentGatewayState,
-  input,
-  getBalance,
-  getPlan,
+  setPaymentGatewayState, //from add money modal
+  input, // from plantypes.js
+  getBalance, //from plantypes.js
+  getPlan, //from plantypes.js
 }) {
   useEffect(() => {
     getPaymentGateway();
   }, []);
+
   useEffect(() => {
     window.addEventListener("load", function (e) {
       alert("------");
@@ -39,13 +40,16 @@ function PaymentGatewayModal({
         OID: input.oid,
         WID: 1,
       });
-      console.log("hello", postResponse1);
+
       if (postResponse1.data == null) {
-        toast.error("Error Message here");
+        toast.error("No payment gateway found"); //agr payment gateway nhi milega to
       } else if (postResponse1.data.length == 1) {
-        setMethod(postResponse1?.data);
+        // setMethod(postResponse1?.data);
+        setPaymentGatewayState(false);
+        console.log("hiii");
         let x = getCookie(DATACONSTANT.SETCOOKIE);
         let __x = JSON.parse(x);
+        console.log("data", DATACONSTANT);
         var postResponse2 = await postRequest(DATACONSTANT.REDIRECTTOPAYMENT, {
           Version: DATACONSTANT.Version,
           APPID: DATACONSTANT.APPID,
@@ -57,7 +61,8 @@ function PaymentGatewayModal({
           WID: 1,
           PGID: postResponse1?.data[0]?.id,
         });
-        console.log("hii", postResponse2);
+        console.log("......ridirect to gatewaty", postResponse2);
+        console.log(postResponse2.data.url);
         if (postResponse2.data.url != null) {
           let newWindow = window.open(
             postResponse2.data.url,
@@ -65,12 +70,9 @@ function PaymentGatewayModal({
             "width=600,height=600"
           );
           console.log("new", newWindow);
-          newWindow.onbeforeunload = function () {
-            // console.log("true");
-            // alert(newWindow.closed); // true
-          };
+          newWindow.onbeforeunload = function () {};
         } else {
-          toast.error(postResponse2.data.msg);
+          toast.error(postResponse2.data.msg); // agr scanner open na ho to yeh error aayega
         }
       } else {
         setMethod(postResponse1?.data);

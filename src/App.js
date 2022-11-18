@@ -49,5 +49,3 @@ function App() {
 }
 
 export default App;
-
-// "proxy": "http://admin.checkmyplan.in",

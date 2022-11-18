@@ -6,25 +6,12 @@ import { postRequest } from "../../Services/API_service";
 import wallet from "../../assets/images/wallet.png";
 
 function Add_Money_model({
-  setShow,
+  setShow, //from plantypes.js
   setData,
-  setPaymentGatewayState,
-  input,
-  setInput,
+  setPaymentGatewayState, // from add money modal
+  input, //from plantype.js
+  setInput, //from plantype.js
 }) {
-  // const changeHandler = (event) => {
-  //   const { name, value } = event.target;
-  //   setInput((previous) => {
-  //     return {
-  //       ...previous,
-  //       [name]: value,
-  //     };
-  //   });
-  // };
-  // const handleForm = () => {
-  //   setData((data) => [...data, input]);
-  // };
-
   useEffect(() => {
     getAddMoneyOptions();
     console.log("input bu user", input);
@@ -143,15 +130,13 @@ function Add_Money_model({
                             class="form-check-input cus-input"
                             type="radio"
                             name="flexRadioDefault"
-                            id="flexRadioDefault2"
+                            id={data.oid}
                             style={{ width: "13px" }}
                           />
-                          <label
-                            class="form-check-label"
-                            for="flexRadioDefault2"
-                          >
+                          <label class="form-check-label" for={data.oid}>
                             {data.name}
                           </label>
+
                           <span class="badge badge-danger">Changes 3%</span>
                         </div>
                       </div>

@@ -55,6 +55,7 @@ function Rightbar({
       await delete_cookie(".plan_info");
       // console.log("Hii, cookies are here", getCookie(DATACONSTANT.SETCOOKIE));
       window.location.href = "http://checkmyplan.in";
+      // window.location.href = "http://localhost:4000";
     } catch (error) {
       return {
         statuscode: -1,

@@ -103,8 +103,10 @@ export default function PlanTypes() {
     oid: 0,
   });
   const [data, setData] = useState([]);
-  const [amount, setAmount] = useState(0);
+  const [loader, setLoader] = useState(false);
+
   async function getPlan() {
+    setLoader(true);
     try {
       let __x = JSON.parse(x);
       var postResponse = await postRequest(DATACONSTANT.GET_PLAN_URL, {
@@ -122,10 +124,12 @@ export default function PlanTypes() {
         msg: error.code,
       };
     }
+    setLoader(false);
   }
 
   const [info, setInfo] = useState(true);
   let x = getCookie(DATACONSTANT.SETCOOKIE);
+
   useEffect(() => {
     if (!getCookie(DATACONSTANT.SETCOOKIE)) {
       setInfo(false);
@@ -135,6 +139,12 @@ export default function PlanTypes() {
   }, [info, x]);
 
   <p id="demo"></p>;
+
+  const [popup, setPopup] = useState(false);
+
+  async function popupOpen() {
+    setPopup(true);
+  }
 
   async function buyPlan(pId, amt) {
     let text = "Press a button!\nEither OK or Cancel.";
@@ -170,6 +180,7 @@ export default function PlanTypes() {
           msg: ex.code,
         };
       }
+
       text = "You pressed OK!";
     } else {
       text = "You canceled!";
@@ -221,59 +232,81 @@ export default function PlanTypes() {
         </div>{" "}
       </header>{" "}
       <section id="generic_price_table">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="price-heading clearfix">
-                <h1>Our Pricing</h1>
+        <div>
+          {loader && (
+            <div
+              style={{
+                // top: "-165px",
+                // left: "-555px",
+                position: "absolute",
+                height: "100%",
+                width: "100%",
+                zIndex: 999,
+                backgroundColor: "rgba(0,0,0,0.3)",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                color: "#fff",
+              }}
+            >
+              <div class="spinner-border m-5" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          )}
+          <div className="container">
+            <div className="row">
+              <div className="col-md-12">
+                <div className="price-heading clearfix">
+                  <h1>Our Pricing</h1>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="container">
-          <div className="row">
-            {data?.map((data, index) => {
-              if (data.isExpired === false && data.isPurchased === true) {
-                return (
-                  <div className="col-md-3" key={index}>
-                    <div className="generic_content clearfix">
-                      <div className="generic_head_price clearfix">
-                        <div className="box">
-                          <div className="ribbon ribbon-top-right">
-                            <span>{data.isActive ? "Active" : ""}</span>
+          <div className="container">
+            <div className="row">
+              {data?.map((data, index) => {
+                if (data.isExpired === false && data.isPurchased === true) {
+                  return (
+                    <div className="col-md-3" key={index}>
+                      <div className="generic_content clearfix">
+                        <div className="generic_head_price clearfix">
+                          <div className="box">
+                            <div className="ribbon ribbon-top-right">
+                              <span>{data.isActive ? "Active" : ""}</span>
+                            </div>
+                          </div>
+
+                          <div className="generic_price_tag clearfix">
+                            {/* <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2042px-WhatsApp.svg.png"> */}
                           </div>
                         </div>
 
-                        <div className="generic_price_tag clearfix">
-                          {/* <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2042px-WhatsApp.svg.png"> */}
+                        <div className="generic_feature_list">
+                          <h4>Rs: {data.packageCost}</h4>
+                          <ul>
+                            <li>
+                              <span>Package Id: {data.packageId}</span>
+                            </li>
+                            <li>
+                              <span>{data.slab}</span>
+                            </li>
+                            <li>
+                              <span>{data.remark}</span>
+                            </li>
+                            <li>
+                              <span>Validity: {data.validityInDays}</span>
+                            </li>
+                            <li>
+                              <span>Daily Hit Count: {data.dailyHitCount}</span>
+                            </li>
+                            <li>
+                              <span>Service: {data.serviceName}</span>
+                            </li>
+                          </ul>
                         </div>
-                      </div>
 
-                      <div className="generic_feature_list">
-                        <h4>Rs: {data.packageCost}</h4>
-                        <ul>
-                          <li>
-                            <span>Package Id: {data.packageId}</span>
-                          </li>
-                          <li>
-                            <span>{data.slab}</span>
-                          </li>
-                          <li>
-                            <span>{data.remark}</span>
-                          </li>
-                          <li>
-                            <span>Validity: {data.validityInDays}</span>
-                          </li>
-                          <li>
-                            <span>Daily Hit Count: {data.dailyHitCount}</span>
-                          </li>
-                          <li>
-                            <span>Service: {data.serviceName}</span>
-                          </li>
-                        </ul>
-                      </div>
-
-                      {/* <div className="generic_price_btn clearfix">
+                        {/* <div className="generic_price_btn clearfix">
                         <a
                           data-toggle="confirmation"
                           className="btn mr-2"
@@ -285,131 +318,132 @@ export default function PlanTypes() {
                           Renew
                         </a>
                       </div> */}
+                      </div>
                     </div>
-                  </div>
-                );
-              } else if (
-                data.isExpired === false &&
-                data.isPurchased === false &&
-                data.isActive === true
-              ) {
-                return (
-                  <div className="col-md-3" key={index}>
-                    <div className="generic_content clearfix">
-                      <div className="generic_head_price clearfix">
-                        <div className="box">
-                          {/* <div className="ribbon ribbon-top-right">
+                  );
+                } else if (
+                  data.isExpired === false &&
+                  data.isPurchased === false &&
+                  data.isActive === true
+                ) {
+                  return (
+                    <div className="col-md-3" key={index}>
+                      <div className="generic_content clearfix">
+                        <div className="generic_head_price clearfix">
+                          <div className="box">
+                            {/* <div className="ribbon ribbon-top-right">
                             <span>{data.isActive ? "Active" : ""}</span>
                           </div> */}
+                          </div>
+
+                          <div className="generic_price_tag clearfix">
+                            {/* <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2042px-WhatsApp.svg.png"> */}
+                          </div>
                         </div>
 
-                        <div className="generic_price_tag clearfix">
-                          {/* <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2042px-WhatsApp.svg.png"> */}
+                        <div className="generic_feature_list">
+                          <h4>Rs: {data.packageCost}</h4>
+                          <ul>
+                            <li>
+                              <span>Package Id: {data.packageId}</span>
+                            </li>
+                            <li>
+                              <span>{data.slab}</span>
+                            </li>
+                            <li>
+                              <span>{data.remark}</span>
+                            </li>
+                            <li>
+                              <span>Validity: {data.validityInDays}</span>
+                            </li>
+                            <li>
+                              <span>Daily Hit Count: {data.dailyHitCount}</span>
+                            </li>
+                            <li>
+                              <span>Service: {data.serviceName}</span>
+                            </li>
+                          </ul>
                         </div>
-                      </div>
 
-                      <div className="generic_feature_list">
-                        <h4>Rs: {data.packageCost}</h4>
-                        <ul>
-                          <li>
-                            <span>Package Id: {data.packageId}</span>
-                          </li>
-                          <li>
-                            <span>{data.slab}</span>
-                          </li>
-                          <li>
-                            <span>{data.remark}</span>
-                          </li>
-                          <li>
-                            <span>Validity: {data.validityInDays}</span>
-                          </li>
-                          <li>
-                            <span>Daily Hit Count: {data.dailyHitCount}</span>
-                          </li>
-                          <li>
-                            <span>Service: {data.serviceName}</span>
-                          </li>
-                        </ul>
-                      </div>
-
-                      <div
-                        className="generic_price_btn clearfix"
-                        onClick={() => {
-                          buyPlan(data.packageId, data.packageCost);
-                          // setShow(false);
-                        }}
-                      >
-                        <a data-toggle="confirmation" className="btn mr-2">
-                          Buy Plan
-                        </a>
-                        {/* <a className="btn-primary btn text-white " href="">
+                        <div
+                          className="generic_price_btn clearfix"
+                          onClick={() => {
+                            buyPlan(data.packageId, data.packageCost);
+                            // setShow(false);
+                          }}
+                        >
+                          <a data-toggle="confirmation" className="btn mr-2">
+                            Buy Plan
+                          </a>
+                          {/* <a className="btn-primary btn text-white " href="">
                           Renew
                         </a> */}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              } else if (
-                data.isExpired === true &&
-                data.isPurchased === true &&
-                data.isActive === false
-              ) {
-                return (
-                  <div className="col-md-3" key={index}>
-                    <div className="generic_content clearfix">
-                      <div className="generic_head_price clearfix">
-                        <div className="box">
-                          {/* <div className="ribbon ribbon-top-right">
+                  );
+                } else if (
+                  data.isExpired === true &&
+                  data.isPurchased === true &&
+                  data.isActive === false
+                ) {
+                  return (
+                    <div className="col-md-3" key={index}>
+                      <div className="generic_content clearfix">
+                        <div className="generic_head_price clearfix">
+                          <div className="box">
+                            {/* <div className="ribbon ribbon-top-right">
                             <span>{data.isActive ? "Active" : ""}</span>
                           </div> */}
+                          </div>
+
+                          <div className="generic_price_tag clearfix">
+                            {/* <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2042px-WhatsApp.svg.png"> */}
+                          </div>
                         </div>
 
-                        <div className="generic_price_tag clearfix">
-                          {/* <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2042px-WhatsApp.svg.png"> */}
+                        <div className="generic_feature_list">
+                          <h4>Rs: {data.packageCost}</h4>
+                          <ul>
+                            <li>
+                              <span>Package Id: {data.packageId}</span>
+                            </li>
+                            <li>
+                              <span>{data.slab}</span>
+                            </li>
+                            <li>
+                              <span>{data.remark}</span>
+                            </li>
+                            <li>
+                              <span>Validity: {data.validityInDays}</span>
+                            </li>
+                            <li>
+                              <span>Daily Hit Count: {data.dailyHitCount}</span>
+                            </li>
+                            <li>
+                              <span>Service: {data.serviceName}</span>
+                            </li>
+                          </ul>
                         </div>
-                      </div>
 
-                      <div className="generic_feature_list">
-                        <h4>Rs: {data.packageCost}</h4>
-                        <ul>
-                          <li>
-                            <span>Package Id: {data.packageId}</span>
-                          </li>
-                          <li>
-                            <span>{data.slab}</span>
-                          </li>
-                          <li>
-                            <span>{data.remark}</span>
-                          </li>
-                          <li>
-                            <span>Validity: {data.validityInDays}</span>
-                          </li>
-                          <li>
-                            <span>Daily Hit Count: {data.dailyHitCount}</span>
-                          </li>
-                          <li>
-                            <span>Service: {data.serviceName}</span>
-                          </li>
-                        </ul>
-                      </div>
-
-                      <div className="generic_price_btn clearfix">
-                        {/* <a
+                        <div className="generic_price_btn clearfix">
+                          {/* <a
                           data-toggle="confirmation"
                           className="btn mr-2"
                           onClick={() => buyPlan(data.packageId)}
                         >
                           Buy Plan
                         </a> */}
-                        <a className="btn-primary btn text-white " href="">
-                          Renew
-                        </a>
+                          <a className="btn-primary btn text-white " href="">
+                            Renew
+                          </a>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              }
-            })}
+                  );
+                }
+              })}
+            </div>
           </div>
         </div>
       </section>
