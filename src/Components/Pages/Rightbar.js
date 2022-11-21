@@ -4,16 +4,12 @@ import AVATAR1 from "../../assets/images/users/avatar-1.jpg";
 import { DATACONSTANT } from "../../constants/data.constant";
 import { postRequest } from "../../Services/API_service";
 import delete_cookie, { getCookie } from "../Library/Cookies";
+import changePasswordModal from "./changePasswordModal";
+import favicon3 from "../../assets/images/favicon3.png";
 
-function Rightbar({
-  show1,
-  setShow1,
-  setShow,
-  getBalance,
-  balance,
-  setBalance,
-}) {
+function Rightbar({ show1, setShow1, getBalance, balance }) {
   const [data, setData] = useState(true);
+  const [modal, setModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -43,7 +39,6 @@ function Rightbar({
     try {
       let x = getCookie(DATACONSTANT.SETCOOKIE);
       let __x = JSON.parse(x);
-      // console.log(__x);
       var postResponse = await postRequest(DATACONSTANT.LOGOUT_URL, {
         version: DATACONSTANT.Version,
         APPID: DATACONSTANT.APPID,
@@ -51,9 +46,7 @@ function Rightbar({
         SessionID: __x?.sessionID,
         Session: __x?.session,
       });
-      // console.log("options", postResponse);
       await delete_cookie(".plan_info");
-      // console.log("Hii, cookies are here", getCookie(DATACONSTANT.SETCOOKIE));
       window.location.href = "http://checkmyplan.in";
       // window.location.href = "http://localhost:4000";
     } catch (error) {
@@ -77,25 +70,22 @@ function Rightbar({
           onClick={() => setShow1(false)}
         ></div>
       )}
+      {modal && (
+        <div
+          style={{
+            display: "flex",
+            height: "100vh",
+            width: "100vw",
+            position: "absolute",
+          }}
+          onClick={() => setModal(false)}
+        ></div>
+      )}
 
       <div className="menu-extras topbar-custom">
         <ul className="list-unstyled float-right mb-0">
-          {/* <!-- language--> */}
-          {/* <li className="mobile-on" onClick={() => setShow(true)}>
-            <a
-              className="mt-3 btn btn-info btn-sm mr-2"
-              href="#"
-              role="button"
-              aria-haspopup="false"
-              aria-expanded="false"
-            >
-              <span>
-                <i className="fas fa-wallet"></i> &nbsp;Add Money
-              </span>
-            </a>
-          </li> */}
-          {/* <!-- notification--> */}
-          <li className="dropdown notification-list">
+          <li className="fa fa-inr dropdown notification-list">
+            <i class="fa fa-inr" aria-hidden="true"></i>
             <span
               style={{
                 fontSize: "16px",
@@ -103,7 +93,16 @@ function Rightbar({
                 fontFamily: "sans-serif",
               }}
             >
-              Rs. {balance}
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Indian_Rupee_symbol.svg/1200px-Indian_Rupee_symbol.svg.png"
+                style={{
+                  width: "10px",
+                  position: "relative",
+                  left: "-2px",
+                  bottom: "2px",
+                }}
+              />
+              {balance}
             </span>
             <a
               className="mt-1 nav-link dropdown-toggle arrow-none waves-effect"
@@ -113,7 +112,8 @@ function Rightbar({
               aria-haspopup="false"
               aria-expanded="false"
             >
-              <i className="fas fa-wallet fa-2x"></i>
+              <img className="wallet" src={favicon3} alt="no image"></img>
+              {/* <i className="fas fa-wallet fa-2x"></i> */}
             </a>
           </li>
           {/* <!-- User--> */}
@@ -141,24 +141,36 @@ function Rightbar({
                 x-placement="top-end"
               >
                 <div class="dropdown-item noti-title">
-                  <h5>Welcome</h5>
+                  <h5>
+                    {JSON.parse(x)?.name}(UserID: {JSON.parse(x)?.userID})
+                  </h5>
                 </div>
-                <a class="dropdown-item" href="#">
-                  {" "}
-                  <span>UserID:</span> {JSON.parse(x)?.userID},
-                </a>
-                <a class="dropdown-item" href="#">
-                  {" "}
-                  <span>Name:</span> {JSON.parse(x)?.name},
-                </a>
-                <a class="dropdown-item" href="#">
-                  {" "}
-                  <span>Email:</span> {JSON.parse(x)?.emailID}
+                <a class="dropdown-item" href="">
+                  {JSON.parse(x)?.emailID}
                 </a>
                 <div class="dropdown-divider"></div>
-                {/* <a class="dropdown-item" href="http://checkmyplan.in/"> */}
-                <a class="dropdown-item" onClick={logout}>
-                  <i class="mdi mdi-logout m-r-5 text-muted"></i> Logout
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setModal(true);
+                  }}
+                >
+                  <i class="fa fa-key iconfm m-r-5 text-muted"></i> Change
+                  Password
+                </a>
+                {modal && (
+                  <changePasswordModal modal={modal} setModal={setModal} />
+                )}
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="">
+                  <i class="fa fa-file iconfm m-r-5 text-muted"></i> API
+                  Documentation
+                </a>{" "}
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" onClick={logout} href="">
+                  <i class="mdi mdi-logout iconfm m-r-5 text-muted"></i> Logout
                 </a>
               </div>
             )}
