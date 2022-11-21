@@ -25,11 +25,11 @@ function PaymentGatewayModal({
   const [chooseMethod, setChooseMethod] = useState(0);
   const [method, setMethod] = useState([]);
   const [loader, setLoader] = useState(false);
+
   async function getPaymentGateway() {
     try {
       let x = getCookie(DATACONSTANT.SETCOOKIE);
       let __x = JSON.parse(x);
-
       var postResponse1 = await postRequest(DATACONSTANT.PAYMENTGATEWAY, {
         version: DATACONSTANT.Version,
         APPID: DATACONSTANT.APPID,
@@ -46,7 +46,6 @@ function PaymentGatewayModal({
       } else if (postResponse1.data.length == 1) {
         // setMethod(postResponse1?.data);
         setPaymentGatewayState(false);
-        console.log("hiii");
         let x = getCookie(DATACONSTANT.SETCOOKIE);
         let __x = JSON.parse(x);
         console.log("data", DATACONSTANT);
@@ -94,14 +93,14 @@ function PaymentGatewayModal({
       var postResponse2 = await postRequest(DATACONSTANT.REDIRECTTOPAYMENT, {
         Version: DATACONSTANT.Version,
         APPID: DATACONSTANT.APPID,
-        UserID: String(__x?.userID),
-        SessionID: String(__x?.sessionID),
-        Session: String(__x?.session),
-        Amount: String(input.amount),
-        OID: String(input.oid),
-        WID: String(1),
-        PGID: String(method[i].pgType),
-        UPIGID: String(method[i].id),
+        UserID: __x?.userID,
+        SessionID: __x?.sessionID,
+        Session: __x?.session,
+        Amount: input.amount,
+        OID: input.oid,
+        WID: 1,
+        PGID: method[i].pgType,
+        UPIGID: method[i].id,
       });
       console.log("redirect after gateway", postResponse2);
       if (postResponse2.data.url != null) {

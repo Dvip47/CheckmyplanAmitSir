@@ -7126,8 +7126,8 @@ button:focus {
 
 .btn-danger {
   color: #ffffff;
-  background-color: #08663a;
-  border-color: #08663a;
+  background-color: #0ca4e8;
+  border-color: #0ca4e8;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
@@ -7149,7 +7149,7 @@ button:focus {
 .btn-danger.disabled,
 .btn-danger:disabled {
   color: #ffffff;
-  background-color: #08663a;
+  background-color: #605daf;
   border-color: #08663a;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
@@ -7900,7 +7900,8 @@ button:focus {
 }
 
 .dropdown-menu .dropdown-item:hover {
-  background: #08663a;
+  background: #605daf;
+  color: white;
 }
 
 .dropdown-menu .dropdown-item:first-child {
@@ -8245,7 +8246,7 @@ label {
 }
 
 .modal .modal-header {
-  background: #08663a;
+  background: #605daf;
   color: #ffffff;
   border: 0;
   -webkit-border-radius: 3px 3px 0 0;

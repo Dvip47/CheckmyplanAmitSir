@@ -17098,3 +17098,6 @@
 .typcn-zoom:before {
   content: "\e14f";
 }
+.iconfm::before {
+  font-size: 16px;
+}

@@ -7,8 +7,9 @@ import { postRequest } from "../../Services/API_service";
 import { getCookie } from "../Library/Cookies";
 import { useState } from "react";
 import { useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Icon from "../../assets/images/greenInrIcon.png";
 
 export default function PlanTypes() {
   useEffect(() => {
@@ -283,7 +284,19 @@ export default function PlanTypes() {
                         </div>
 
                         <div className="generic_feature_list">
-                          <h4>Rs: {data.packageCost}</h4>
+                          <h4>
+                            {" "}
+                            <img
+                              src={Icon}
+                              style={{
+                                width: "27px",
+                                position: "relative",
+                                left: "9px",
+                                bottom: "2px",
+                              }}
+                            />{" "}
+                            {data.packageCost}
+                          </h4>
                           <ul>
                             <li>
                               <span>Package Id: {data.packageId}</span>
@@ -342,7 +355,19 @@ export default function PlanTypes() {
                         </div>
 
                         <div className="generic_feature_list">
-                          <h4>Rs: {data.packageCost}</h4>
+                          <h4>
+                            {" "}
+                            <img
+                              src={Icon}
+                              style={{
+                                width: "27px",
+                                position: "relative",
+                                left: "9px",
+                                bottom: "2px",
+                              }}
+                            />{" "}
+                            {data.packageCost}
+                          </h4>
                           <ul>
                             <li>
                               <span>Package Id: {data.packageId}</span>
@@ -403,7 +428,19 @@ export default function PlanTypes() {
                         </div>
 
                         <div className="generic_feature_list">
-                          <h4>Rs: {data.packageCost}</h4>
+                          <h4>
+                            {" "}
+                            <img
+                              src={Icon}
+                              style={{
+                                width: "27px",
+                                position: "relative",
+                                left: "9px",
+                                bottom: "2px",
+                              }}
+                            />{" "}
+                            {data.packageCost}
+                          </h4>
                           <ul>
                             <li>
                               <span>Package Id: {data.packageId}</span>

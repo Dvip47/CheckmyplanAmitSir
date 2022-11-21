@@ -3653,6 +3653,11 @@ body {
   color: #2d3b48;
 }
 
+.wallet {
+  width: 39px;
+  position: relative;
+  bottom: 10px;
+}
 /* .modal-dialog {
   position: absolute;
   left: 520px;

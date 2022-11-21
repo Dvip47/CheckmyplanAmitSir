@@ -89,9 +89,22 @@ function Add_Money_model({
                       </span>
                       <span
                         class="plan"
-                        style={{ color: "grey", fontWeight: "bold" }}
+                        style={{
+                          color: "grey",
+                          fontWeight: "bold",
+                          fontFamily: "serif",
+                        }}
                       >
-                        Rs: {balance}
+                        <img
+                          src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Indian_Rupee_symbol.svg/1200px-Indian_Rupee_symbol.svg.png"
+                          style={{
+                            width: "8px",
+                            position: "relative",
+                            left: "-2px",
+                            bottom: "2px",
+                          }}
+                        />
+                        {balance}
                       </span>
                     </div>
                   </div>
