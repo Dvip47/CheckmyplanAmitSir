@@ -4,12 +4,18 @@ import AVATAR1 from "../../assets/images/users/avatar-1.jpg";
 import { DATACONSTANT } from "../../constants/data.constant";
 import { postRequest } from "../../Services/API_service";
 import delete_cookie, { getCookie } from "../Library/Cookies";
-import changePasswordModal from "./changePasswordModal";
 import favicon3 from "../../assets/images/favicon3.png";
+import ChangePasswordModal from "./ChangePasswordModal";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Rightbar({ show1, setShow1, getBalance, balance }) {
   const [data, setData] = useState(true);
   const [modal, setModal] = useState(false);
+  const handleCopy = () => {
+    navigator.clipboard.writeText(token);
+    toast.success("Copy to clipboard");
+  };
 
   const navigate = useNavigate();
 
@@ -24,6 +30,7 @@ function Rightbar({ show1, setShow1, getBalance, balance }) {
 
   useEffect(() => {
     getBalance();
+    getToken();
   }, []);
 
   async function getRemoveCookies() {
@@ -57,6 +64,28 @@ function Rightbar({ show1, setShow1, getBalance, balance }) {
     }
   }
 
+  const [token, setToken] = useState(0);
+
+  async function getToken() {
+    try {
+      let x = getCookie(DATACONSTANT.SETCOOKIE);
+      let __x = JSON.parse(x);
+      var postResponse = await postRequest(DATACONSTANT.GETTOKEN, {
+        version: DATACONSTANT.Version,
+        APPID: DATACONSTANT.APPID,
+        UserID: __x?.userID,
+        SessionID: __x?.sessionID,
+        Session: __x?.session,
+      });
+      setToken(postResponse.token);
+    } catch (error) {
+      return {
+        statuscode: -1,
+        msg: error.code,
+      };
+    }
+  }
+
   return (
     <div>
       {show1 && (
@@ -68,17 +97,6 @@ function Rightbar({ show1, setShow1, getBalance, balance }) {
             position: "absolute",
           }}
           onClick={() => setShow1(false)}
-        ></div>
-      )}
-      {modal && (
-        <div
-          style={{
-            display: "flex",
-            height: "100vh",
-            width: "100vw",
-            position: "absolute",
-          }}
-          onClick={() => setModal(false)}
         ></div>
       )}
 
@@ -145,6 +163,24 @@ function Rightbar({ show1, setShow1, getBalance, balance }) {
                     {JSON.parse(x)?.name}(UserID: {JSON.parse(x)?.userID})
                   </h5>
                 </div>
+                <div class="dropdown-item noti-title">
+                  <h5>
+                    <div className="d-flex justify-content-between">
+                      <p
+                        className="token"
+                        value={token}
+                        onChange={(e) => setToken(e.target.value)}
+                      >
+                        {token}
+                      </p>
+                      <i
+                        className="fa-solid fa fa-copy"
+                        style={{ fontSize: "18px" }}
+                        onClick={handleCopy}
+                      ></i>
+                    </div>
+                  </h5>
+                </div>
                 <a class="dropdown-item" href="">
                   {JSON.parse(x)?.emailID}
                 </a>
@@ -152,8 +188,7 @@ function Rightbar({ show1, setShow1, getBalance, balance }) {
                 <a
                   class="dropdown-item"
                   href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
+                  onClick={() => {
                     setModal(true);
                   }}
                 >
@@ -161,16 +196,20 @@ function Rightbar({ show1, setShow1, getBalance, balance }) {
                   Password
                 </a>
                 {modal && (
-                  <changePasswordModal modal={modal} setModal={setModal} />
+                  <ChangePasswordModal modal={modal} setModal={setModal} />
                 )}
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="">
+                <a
+                  class="dropdown-item"
+                  href="https://admin.checkmyplan.in/swagger/index.html"
+                >
                   <i class="fa fa-file iconfm m-r-5 text-muted"></i> API
                   Documentation
                 </a>{" "}
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" onClick={logout} href="">
-                  <i class="mdi mdi-logout iconfm m-r-5 text-muted"></i> Logout
+                {/* <a class="dropdown-item" href="http://checkmyplan.in/"> */}
+                <a class="dropdown-item" onClick={logout}>
+                  <i class="mdi mdi-logout m-r-5 text-muted"></i> Logout
                 </a>
               </div>
             )}
