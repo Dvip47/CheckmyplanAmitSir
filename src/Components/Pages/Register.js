@@ -122,6 +122,7 @@ const Register = () => {
                       placeholder="Pincode"
                       name="pincode"
                       onChange={inputHandler}
+                      maxLength={6}
                     />
                   </div>
                 </div>

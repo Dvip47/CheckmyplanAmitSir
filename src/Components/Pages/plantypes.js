@@ -105,6 +105,8 @@ export default function PlanTypes() {
   });
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(false);
+  const [show, setShow] = useState(false);
+  const [balance, setBalance] = useState([]);
 
   async function getPlan() {
     setLoader(true);
@@ -188,8 +190,6 @@ export default function PlanTypes() {
     }
     document.getElementById("demo").innerHTML = text;
   }
-  const [show, setShow] = useState(false);
-  const [balance, setBalance] = useState([]);
 
   async function getBalance() {
     try {

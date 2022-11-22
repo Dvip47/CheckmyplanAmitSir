@@ -5,14 +5,15 @@ export const DATACONSTANT = {
 
   LOGIN_URL: "/ApiUserAfterLogin/APIUserLogin",
 
-  // BASE_URL: "http://admin.checkmyplan.in",
-  BASE_URL: "",
+  BASE_URL: "http://admin.checkmyplan.in",
 
   BUY_URL: "/ApiUserAfterLogin/VASBuyOrRenewPlanForApp",
 
   GET_PLAN_URL: "/ApiUserAfterLogin/GetVASPlanMasterForApp",
 
   Version: "1.0",
+
+  VERSION2: "1.5",
 
   APPID: "ROUNDPAYAPPID13APR20191351",
 
@@ -29,4 +30,8 @@ export const DATACONSTANT = {
   REDIRECTTOPAYMENT: "/ApiUserAfterLogin/PGRedirectForApi",
 
   FORGOTPASSWORD: "/ApiUserAfterLogin/ForgetPassword",
+
+  CHANGEPASSWORD: "/ApiUserAfterLogin/ChangePasswordForApi",
+
+  GETTOKEN: "/ApiUserAfterLogin/ChangeApiUserToken",
 };
