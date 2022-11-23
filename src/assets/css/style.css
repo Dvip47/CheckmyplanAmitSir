@@ -3670,3 +3670,42 @@ body {
   top: 0px;
   z-index: 2;
 } */
+.swal-modal {
+  width: 400px !important;
+  margin: 0px auto !important;
+}
+.swal-icon {
+  width: 50px !important;
+  height: 50px !important;
+  margin: 10px auto !important;
+}
+.swal-button-container {
+  margin: 5px inherit;
+}
+.swal-footer {
+  padding-top: 13px !important;
+  margin-top: 6px !important;
+  padding: 5px 109px !important;
+}
+.swal-icon--warning__body {
+  width: 5px !important;
+  height: 23px !important;
+  top: 10px !important;
+}
+.swal-icon--error__line--left {
+  left: 2px !important;
+}
+.swal-icon--error__line {
+  height: 4px !important;
+  width: 34px !important;
+
+  top: 21px !important;
+  border-radius: 2px !important;
+  width: 50px !important;
+}
+.swal-icon--error__line--right {
+  right: 3px !important;
+}
+.cursor-pointer {
+  cursor: pointer;
+}

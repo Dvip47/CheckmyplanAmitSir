@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Icon from "../../assets/images/greenInrIcon.png";
+import swal from "sweetalert";
 
 export default function PlanTypes() {
   useEffect(() => {
@@ -143,52 +144,54 @@ export default function PlanTypes() {
 
   <p id="demo"></p>;
 
-  const [popup, setPopup] = useState(false);
-
-  async function popupOpen() {
-    setPopup(true);
-  }
-
-  async function buyPlan(pId, amt) {
-    let text = "Press a button!\nEither OK or Cancel.";
-    if (window.confirm(text) == true) {
-      try {
-        let __x = JSON.parse(x);
-        var postResponse = await postRequest(DATACONSTANT.BUY_URL, {
-          version: DATACONSTANT.Version,
-          APPID: DATACONSTANT.APPID,
-          UserID: __x?.userID,
-          PackageId: pId,
-          SessionID: __x?.sessionID,
-          Session: __x?.session,
-        });
-        if (postResponse?.statuscode == "-1") {
-          toast.error(postResponse.msg);
-          if (postResponse.msg === "Insufficient Balance!") {
-            setShow(true);
-            setInput((prev) => {
-              return {
-                ...prev,
-                amount: amt,
-              };
+  async function buyPlan2(pId, amt) {
+    swal({
+      title: "Buy This Plan?",
+      text: "Are you sure to proceed!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((isBuy) => {
+      if (isBuy) {
+        buy();
+        async function buy() {
+          try {
+            let __x = JSON.parse(x);
+            var postResponse = await postRequest(DATACONSTANT.BUY_URL, {
+              version: DATACONSTANT.Version,
+              APPID: DATACONSTANT.APPID,
+              UserID: __x?.userID,
+              PackageId: pId,
+              SessionID: __x?.sessionID,
+              Session: __x?.session,
             });
+            if (postResponse?.statuscode == "-1") {
+              toast.error(postResponse.msg);
+              if (postResponse.msg === "Insufficient Balance!") {
+                setShow(true);
+                setInput((prev) => {
+                  return {
+                    ...prev,
+                    amount: amt,
+                  };
+                });
+              }
+            } else {
+              toast.success(postResponse.msg);
+            }
+          } catch (ex) {
+            toast.error(ex.code);
+            return {
+              statuscode: -1,
+              msg: ex.code,
+            };
           }
-        } else {
-          toast.success(postResponse.msg);
         }
-      } catch (ex) {
-        toast.error(ex.code);
-        return {
-          statuscode: -1,
-          msg: ex.code,
-        };
+      } else {
+        swal("Fail", "Plan Purchase Failed!", "error");
       }
-
-      text = "You pressed OK!";
-    } else {
-      text = "You canceled!";
-    }
-    document.getElementById("demo").innerHTML = text;
+    });
+    // document.getElementById("demo").innerHTML = text;
   }
 
   async function getBalance() {
@@ -319,18 +322,21 @@ export default function PlanTypes() {
                           </ul>
                         </div>
 
-                        {/* <div className="generic_price_btn clearfix">
-                        <a
-                          data-toggle="confirmation"
-                          className="btn mr-2"
-                          onClick={() => buyPlan(data.packageId)}
+                        <div
+                          className="generic_price_btn clearfix"
+                          style={{ height: "26px" }}
                         >
-                          Buy Plan
-                        </a>
-                        <a className="btn-primary btn text-white " href="">
-                          Renew
-                        </a>
-                      </div> */}
+                          {/* <a
+                            data-toggle="confirmation"
+                            className="btn mr-2"
+                            onClick={() => buyPlan2(data.packageId)}
+                          >
+                            Buy Plan
+                          </a>
+                          <a className="btn-primary btn text-white " href="">
+                            Renew
+                          </a> */}
+                        </div>
                       </div>
                     </div>
                   );
@@ -393,7 +399,7 @@ export default function PlanTypes() {
                         <div
                           className="generic_price_btn clearfix"
                           onClick={() => {
-                            buyPlan(data.packageId, data.packageCost);
+                            buyPlan2(data.packageId, data.packageCost);
                             // setShow(false);
                           }}
                         >

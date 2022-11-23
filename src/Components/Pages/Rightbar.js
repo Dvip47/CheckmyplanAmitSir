@@ -158,28 +158,26 @@ function Rightbar({ show1, setShow1, getBalance, balance }) {
                 }
                 x-placement="top-end"
               >
-                <div class="dropdown-item noti-title">
+                <div class="dropdown-item noti-title cus-hover">
                   <h5>
                     {JSON.parse(x)?.name}(UserID: {JSON.parse(x)?.userID})
                   </h5>
                 </div>
                 <div class="dropdown-item noti-title">
-                  <h5>
-                    <div className="d-flex justify-content-between">
-                      <p
-                        className="token"
-                        value={token}
-                        onChange={(e) => setToken(e.target.value)}
-                      >
-                        {token}
-                      </p>
-                      <i
-                        className="fa-solid fa fa-copy"
-                        style={{ fontSize: "18px" }}
-                        onClick={handleCopy}
-                      ></i>
-                    </div>
-                  </h5>
+                  <div className="d-flex justify-content-between">
+                    <p
+                      className="token"
+                      value={token}
+                      onChange={(e) => setToken(e.target.value)}
+                    >
+                      {token}
+                    </p>
+                    <i
+                      className="fa-solid fa fa-copy ml-3"
+                      style={{ fontSize: "18px" }}
+                      onClick={handleCopy}
+                    ></i>
+                  </div>
                 </div>
                 <a class="dropdown-item" href="">
                   {JSON.parse(x)?.emailID}
@@ -202,13 +200,14 @@ function Rightbar({ show1, setShow1, getBalance, balance }) {
                 <a
                   class="dropdown-item"
                   href="https://admin.checkmyplan.in/swagger/index.html"
+                  target="_blank"
                 >
                   <i class="fa fa-file iconfm m-r-5 text-muted"></i> API
                   Documentation
                 </a>{" "}
                 <div class="dropdown-divider"></div>
                 {/* <a class="dropdown-item" href="http://checkmyplan.in/"> */}
-                <a class="dropdown-item" onClick={logout}>
+                <a class="dropdown-item cursor-pointer" onClick={logout}>
                   <i class="mdi mdi-logout m-r-5 text-muted"></i> Logout
                 </a>
               </div>
