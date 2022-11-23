@@ -7,6 +7,8 @@ export const DATACONSTANT = {
 
   BASE_URL: "http://admin.checkmyplan.in",
 
+  // BASE_URL: "",
+
   BUY_URL: "/ApiUserAfterLogin/VASBuyOrRenewPlanForApp",
 
   GET_PLAN_URL: "/ApiUserAfterLogin/GetVASPlanMasterForApp",
@@ -35,3 +37,5 @@ export const DATACONSTANT = {
 
   GETTOKEN: "/ApiUserAfterLogin/ChangeApiUserToken",
 };
+
+// "proxy": "http://admin.checkmyplan.in",

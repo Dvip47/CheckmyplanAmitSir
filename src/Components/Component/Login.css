@@ -9141,3 +9141,12 @@ code {
 .dropdown-menu-right {
   right: 0 !important;
 }
+.cus-hover:hover {
+  color: #fff;
+}
+.dropdown-menu .dropdown-item .justify-content-between:hover {
+  color: #fff;
+}
+.dropdown-menu .dropdown-item:first-child:hover {
+  background-color: inherit !important;
+}
