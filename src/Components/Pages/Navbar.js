@@ -47,7 +47,13 @@ function Navbar({
                     <i className="dripicons-device-desktop"></i>Plan Types
                   </NavLink>
                 </li>
+                <li className="has-submenu mob-off">
+                  <NavLink to="/IPMaster">
+                    <i className="fa fa-server"></i>IPAddress Master
+                  </NavLink>
+                </li>
               </ul>
+
               <button
                 className="add-btn btn btn-danger mt-2 mb-2"
                 onClick={() => setShow(true)}

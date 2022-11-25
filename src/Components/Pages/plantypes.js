@@ -268,7 +268,7 @@ export default function PlanTypes() {
             </div>
           </div>
           <div className="container">
-            <div className="row">
+            <div className="row d-flex justify-content-center">
               {data?.map((data, index) => {
                 if (data.isExpired === false && data.isPurchased === true) {
                   return (
