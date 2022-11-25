@@ -2604,11 +2604,11 @@ pre[class*="language-"] {
   line-height: 60px;
   color: #605daf;
   width: 60px;
-  height: 60px;
-  font-size: 26px;
+  height: 38px;
+  font-size: 24px;
   display: inline-block;
   font-weight: 400;
-  border: 3px solid #d5d4ea;
+  border: 2px solid #d5d4ea;
   text-align: center;
   border-radius: 50%;
   background: #c5c3e2;
@@ -3708,4 +3708,13 @@ body {
 }
 .cursor-pointer {
   cursor: pointer;
+}
+.cus-bg {
+  background-color: linear-gradient(85deg, #ce508d, #b5426d);
+}
+.fa-trash {
+  color: red;
+  font-size: 21px;
+  position: relative;
+  left: 7px;
 }

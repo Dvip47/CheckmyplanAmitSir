@@ -159,9 +159,14 @@ function Rightbar({ show1, setShow1, getBalance, balance }) {
                 x-placement="top-end"
               >
                 <div class="dropdown-item noti-title cus-hover">
-                  <h5>
-                    {JSON.parse(x)?.name}(UserID: {JSON.parse(x)?.userID})
-                  </h5>
+                  {JSON.parse(x).name ? (
+                    <h5>
+                      {JSON.parse(x)?.name} &nbsp; (UserID:{" "}
+                      {JSON.parse(x)?.userID})
+                    </h5>
+                  ) : (
+                    <h5>UserID: {JSON.parse(x)?.userID}</h5>
+                  )}
                 </div>
                 <div class="dropdown-item noti-title">
                   <div className="d-flex justify-content-between">
@@ -199,14 +204,13 @@ function Rightbar({ show1, setShow1, getBalance, balance }) {
                 <div class="dropdown-divider"></div>
                 <a
                   class="dropdown-item"
-                  href="https://admin.checkmyplan.in/swagger/index.html"
+                  href="https://admin.checkmyplan.in/apidoc?t=1"
                   target="_blank"
                 >
                   <i class="fa fa-file iconfm m-r-5 text-muted"></i> API
                   Documentation
                 </a>{" "}
                 <div class="dropdown-divider"></div>
-                {/* <a class="dropdown-item" href="http://checkmyplan.in/"> */}
                 <a class="dropdown-item cursor-pointer" onClick={logout}>
                   <i class="mdi mdi-logout m-r-5 text-muted"></i> Logout
                 </a>
@@ -220,3 +224,6 @@ function Rightbar({ show1, setShow1, getBalance, balance }) {
 }
 
 export default Rightbar;
+{
+  /* <a class="dropdown-item" href="http://checkmyplan.in/"> */
+}

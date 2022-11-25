@@ -10,41 +10,46 @@ import { useNavigate } from "react-router";
 const Register = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState();
+  const [checkboxValidation, setCheckboxValidation] = useState(false);
 
   async function Signup(e) {
-    try {
-      e.preventDefault();
-      var postResponse = await postRequest(DATACONSTANT.CREATEACCOUNT, {
-        domain: DATACONSTANT.DOMAIN_NAME,
-        usercreate: {
-          generateotp: "",
-          otp: "",
-          address: formData.address,
-          emailid: formData.email,
-          mobileNo: formData.mobileNumber,
-          name: formData.Name,
-          pincode: formData.pincode,
-        },
-      });
+    e.preventDefault();
+    if (checkboxValidation == true) {
+      try {
+        var postResponse = await postRequest(DATACONSTANT.CREATEACCOUNT, {
+          domain: DATACONSTANT.DOMAIN_NAME,
+          usercreate: {
+            generateotp: "",
+            otp: "",
+            address: formData.address,
+            emailid: formData.email,
+            mobileNo: formData.mobileNumber,
+            name: formData.Name,
+            pincode: formData.pincode,
+          },
+        });
 
-      console.log("Signup data", postResponse);
-      if (postResponse?.statusCode === 1) {
-        toast.success(postResponse.msg);
-        setCookie(
-          DATACONSTANT.SETCOOKIE,
-          JSON.stringify(postResponse.data),
-          30
-        );
-        // localStorage.setItem("item", "enter");
-        return navigate("/");
-      } else {
-        toast.error(postResponse.msg);
+        console.log("Signup data", postResponse);
+        if (postResponse?.statusCode === 1) {
+          toast.success(postResponse.msg);
+          setCookie(
+            DATACONSTANT.SETCOOKIE,
+            JSON.stringify(postResponse.data),
+            30
+          );
+          // localStorage.setItem("item", "enter");
+          return navigate("/");
+        } else {
+          toast.error(postResponse.msg);
+        }
+      } catch (error) {
+        return {
+          statuscode: -1,
+          msg: error.code,
+        };
       }
-    } catch (error) {
-      return {
-        statuscode: -1,
-        msg: error.code,
-      };
+    } else {
+      toast.error("please accept terms and condition");
     }
   }
 
@@ -133,6 +138,9 @@ const Register = () => {
                         type="checkbox"
                         class="custom-control-input"
                         id="customCheck1"
+                        onClick={() => {
+                          setCheckboxValidation(!checkboxValidation);
+                        }}
                       />{" "}
                       <label
                         class="custom-control-label font-weight-normal"

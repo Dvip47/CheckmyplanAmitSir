@@ -10,10 +10,26 @@ import { getCookie } from "../Library/Cookies";
 
 function ChangePasswordModal({ setModal }) {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState();
+  const [formData, setFormData] = useState({
+    passwordOld: "",
+    passwordNew: "",
+    passwordNe: "",
+  });
+  console.log("............", formData);
 
   let sessionData = getCookie(DATACONSTANT.SETCOOKIE);
+  let msg = "";
 
+  async function checkValidation() {
+    if (formData?.passwordNe === "") {
+      msg = " ";
+    } else if (formData?.passwordNew !== formData?.passwordNe) {
+      msg = "Password did not match with confirm password";
+    } else {
+      msg = " ";
+    }
+  }
+  checkValidation();
   async function changePWD() {
     try {
       let __x = JSON.parse(sessionData);
@@ -101,6 +117,7 @@ function ChangePasswordModal({ setModal }) {
                         name="passwordNe"
                         onChange={inputHandler}
                       />
+                      <p style={{ color: "red" }}>{msg}</p>
                     </div>
                     <button
                       type="button"

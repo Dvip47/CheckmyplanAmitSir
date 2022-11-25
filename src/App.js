@@ -8,6 +8,7 @@ import Order_Summary from "./Components/Pages/Order_Summary";
 import PlanTypes from "./Components/Pages/plantypes";
 import Forgot_password from "./Components/Pages/Forgot_password";
 import Register from "./Components/Pages/Register";
+import { IPMaster } from "./Components/Pages/IPMaster";
 import "./global";
 import { DATACONSTANT } from "./constants/data.constant";
 
@@ -36,6 +37,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<PlanTypes />} />
           <Route exact path="/Order_Summary" element={<Order_Summary />} />
+          <Route exact path="/IPMaster" element={<IPMaster />} />
         </Routes>
       ) : (
         <Routes>

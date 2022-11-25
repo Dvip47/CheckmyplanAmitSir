@@ -5,9 +5,9 @@ export const DATACONSTANT = {
 
   LOGIN_URL: "/ApiUserAfterLogin/APIUserLogin",
 
-  BASE_URL: "http://admin.checkmyplan.in",
+  // BASE_URL: "http://admin.checkmyplan.in",
 
-  // BASE_URL: "",
+  BASE_URL: "",
 
   BUY_URL: "/ApiUserAfterLogin/VASBuyOrRenewPlanForApp",
 
@@ -36,6 +36,10 @@ export const DATACONSTANT = {
   CHANGEPASSWORD: "/ApiUserAfterLogin/ChangePasswordForApi",
 
   GETTOKEN: "/ApiUserAfterLogin/ChangeApiUserToken",
-};
 
-// "proxy": "http://admin.checkmyplan.in",
+  SAVEIP: "/ApiUserAfterLogin/SaveIPAddress",
+
+  GETIP: "/ApiUserAfterLogin/GetIPAddress",
+
+  DELETEIP: "/ApiUserAfterLogin/RemoveIPAddress",
+};
