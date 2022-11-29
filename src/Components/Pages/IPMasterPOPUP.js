@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../assets/css/addMoney.css";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
@@ -8,14 +8,47 @@ import { DATACONSTANT } from "../../constants/data.constant";
 import { getCookie } from "../Library/Cookies";
 
 export const IPMasterPOPUP = ({ setIPPopup }) => {
-  const navigate = useNavigate();
   const [formData, setFormData] = useState();
   const [show, setShow] = useState(false);
+  const [disabled, setdisabled] = useState(false);
 
   let sessionData = getCookie(DATACONSTANT.SETCOOKIE);
 
+  const [button, setButton] = useState(false);
+
+  const [msg, setMsg] = useState("");
+  const [preventtype, setPreventtype] = useState(15);
+  function checkIfValidIP(ipAdd) {
+    const regexExp =
+      /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/gi;
+    let a = ipAdd.slice(3, 4);
+
+    if (ipAdd.length >= 4) {
+      if (a == ".") {
+        if (ipAdd.length == 13) {
+          if (regexExp.test(ipAdd)) {
+            setMsg("1");
+            setButton(true);
+            console.log("ip is ok");
+            return true;
+          } else {
+            setMsg("You have entered an invalid IP address!");
+            return false;
+          }
+        }
+      } else {
+        setPreventtype(5);
+        setMsg("You have entered an invalid IP address!");
+      }
+    } else {
+      setPreventtype(15);
+      setMsg(" ");
+    }
+  }
+
   async function saveIP() {
     try {
+      setdisabled(true);
       let __x = JSON.parse(sessionData);
 
       var postResponse = await postRequest(DATACONSTANT.SAVEIP, {
@@ -24,7 +57,7 @@ export const IPMasterPOPUP = ({ setIPPopup }) => {
         UserID: __x?.userID,
         SessionID: __x?.sessionID,
         Session: __x?.session,
-        IPType: formData.IPType,
+        IPType: 1,
         OTP: formData.OTP,
         IP: formData.IP,
       });
@@ -33,10 +66,11 @@ export const IPMasterPOPUP = ({ setIPPopup }) => {
         setShow(true);
       } else if (postResponse?.statuscode === 1) {
         toast.success(postResponse.msg);
+        setIPPopup(false);
+        //
       } else {
         toast.error(postResponse.msg);
       }
-      console.log(postResponse);
     } catch (error) {
       return {
         statusCode: -1,
@@ -45,9 +79,12 @@ export const IPMasterPOPUP = ({ setIPPopup }) => {
     }
   }
 
+  let a = "/IPMaster";
+
   const inputHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  const [btnDisable, setBtnDisable] = useState(false);
   return (
     <div class="modal show" style={{ display: "block" }} id="myModal">
       <div class="modal-dialog ">
@@ -70,46 +107,61 @@ export const IPMasterPOPUP = ({ setIPPopup }) => {
                   <div class="mt-3">
                     <form>
                       <div class="form-group">
-                        <label for="exampleInputPassword1">
-                          Select IP Type{" "}
-                        </label>
-                        <select
+                        <label for="exampleInputPassword1">IP Type</label>
+                        <text
                           aria-describedby="helpType"
                           class="form-control"
                           id="ddlIPType"
                           tabindex="2"
-                          name="IPType"
-                          onChange={inputHandler}
                         >
-                          <option value="0">:: Select Type ::</option>
-                          <option value="1">API IP</option>
-                          <option value="2">Call Back IP</option>
-                          <option value="3">Long Code IP</option>
-                          <option value="4">Shopping IP</option>
-                        </select>
+                          API IP
+                        </text>
                       </div>{" "}
                       <div class="form-group">
                         <label for="exampleInputPassword1">IP</label>
                         <input
                           type="text"
                           class="form-control"
-                          placeholder="xxxx-xxxx-xxxx-xxxx"
+                          placeholder="xxx-xxx-xxx-xxx"
                           required=""
                           name="IP"
-                          onChange={inputHandler}
+                          maxLength={preventtype}
+                          onChange={(e) => {
+                            inputHandler(e);
+                            setBtnDisable(true);
+                            checkIfValidIP(formData["IP"]);
+                          }}
                         />
+                        {msg == "1" ? (
+                          <p style={{ color: "green" }}>IP Address is Valid</p>
+                        ) : (
+                          <p style={{ color: "red" }}>{msg}</p>
+                        )}
                       </div>
-                      <button
-                        type="button"
-                        class="btn btn-primary"
-                        onClick={saveIP}
-                      >
-                        Save
-                      </button>
+                      {btnDisable ? (
+                        <button
+                          type="button"
+                          class="btn btn-primary"
+                          onClick={saveIP}
+                        >
+                          {disabled ? "Requesting..." : "Save"}
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          class="btn btn-primary"
+                          onClick={saveIP}
+                          disabled
+                        >
+                          {disabled ? "Requesting..." : "Save"}
+                        </button>
+                      )}
                       <button
                         type="button"
                         class="btn btn-primary ml-2"
-                        onClick={() => setIPPopup(false)}
+                        onClick={() => {
+                          setIPPopup(false);
+                        }}
                       >
                         Cancel
                       </button>
@@ -125,23 +177,15 @@ export const IPMasterPOPUP = ({ setIPPopup }) => {
                   <div class="mt-3">
                     <form>
                       <div class="form-group">
-                        <label for="exampleInputPassword1">
-                          Select IP Type{" "}
-                        </label>
-                        <select
+                        <label for="exampleInputPassword1">IP Type</label>
+                        <text
                           aria-describedby="helpType"
                           class="form-control"
                           id="ddlIPType"
                           tabindex="2"
-                          name="IPType"
-                          onChange={inputHandler}
                         >
-                          <option value="0">:: Select Type ::</option>
-                          <option value="1">API IP</option>
-                          <option value="2">Call Back IP</option>
-                          <option value="3">Long Code IP</option>
-                          <option value="4">Shopping IP</option>
-                        </select>
+                          API IP
+                        </text>
                       </div>{" "}
                       <div class="form-group">
                         <label for="exampleInputPassword1">IP</label>
@@ -167,14 +211,16 @@ export const IPMasterPOPUP = ({ setIPPopup }) => {
                       <button
                         type="button"
                         class="btn btn-primary"
-                        onClick={saveIP}
+                        onClick={() => {
+                          saveIP();
+                        }}
                       >
                         Save
                       </button>
                       <button
                         type="button"
                         class="btn btn-primary ml-2"
-                        onClick={() => setIPPopup(false)}
+                        onClick={() => {}}
                       >
                         Cancel
                       </button>

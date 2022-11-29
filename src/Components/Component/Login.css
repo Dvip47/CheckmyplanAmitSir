@@ -6802,15 +6802,13 @@ button:focus {
 
 .btn-primary {
   color: #ffffff;
-  background-color: #08663a;
-  border-color: #08663a;
+  background-color: #0ca4e8;
+  border-color: #0ca4e8;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .btn-primary:hover {
   color: #ffffff;
-  background-color: #d40000;
-  border-color: #d40000;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
@@ -6819,7 +6817,6 @@ button:focus {
   box-shadow: 0 0 0 0.2rem rgba(238, 0, 0, 0.15);
   background-color: #d40000;
   border-color: #d40000;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .btn-primary.disabled,
