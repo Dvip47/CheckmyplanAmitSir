@@ -6,13 +6,13 @@
 *
 */
 .table-fixed tbody {
-    height: calc(100vh - 300px);
-    overflow-y: auto;
-    width: 100%;
+  height: calc(100vh - 300px);
+  overflow-y: auto;
+  width: 100%;
 }
 
-.right{
-    justify-content: flex-end;
+.right {
+  justify-content: flex-end;
 }
 
 .table-fixed thead,
@@ -20,16 +20,14 @@
 .table-fixed tr,
 .table-fixed td,
 .table-fixed th {
-    display: block;
+  display: block;
 }
 
 .table-fixed tbody td,
 .table-fixed tbody th,
 .table-fixed thead > tr > th {
-    float: left;
-    position: relative;
-
-    
+  float: left;
+  position: relative;
 }
 
 /*
@@ -41,14 +39,11 @@
 */
 
 body {
-    background: #74ebd5;
-    background: -webkit-linear-gradient(to right, #74ebd5, #ACB6E5);
-    background: linear-gradient(to right, #74ebd5, #ACB6E5);
-    min-height: 100vh;
-
+  background: #74ebd5;
+  background: -webkit-linear-gradient(to right, #74ebd5, #acb6e5);
+  background: linear-gradient(to right, #74ebd5, #acb6e5);
+  min-height: 80vh;
 }
-.cus-top
-{
-    margin-top: 110px;
+.cus-top {
+  margin-top: 110px;
 }
-

@@ -1,28 +1,32 @@
 import React, { useEffect, useState } from "react";
 import Leftbar from "./Leftbar";
 import Navbar from "./Navbar";
-import { toast } from "react-toastify";
+import Footer from "../Component/Footer";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router";
 import { IPMasterPOPUP } from "./IPMasterPOPUP";
 import "../../assets/css/IP.css";
 import { postRequest } from "../../Services/API_service";
 import { DATACONSTANT } from "../../constants/data.constant";
 import { getCookie } from "../Library/Cookies";
-import swal from "sweetalert";
+import Rightbar from "./Rightbar";
 
 export const IPMaster = () => {
   useEffect(() => {
     getIP();
   }, []);
-
   const [IPPopup, setIPPopup] = useState(false);
-
   let sessionData = getCookie(DATACONSTANT.SETCOOKIE);
   const [data, setData] = useState([]);
+  const [delIP, setDeleteIP] = useState(false);
 
+  let x = getCookie(DATACONSTANT.SETCOOKIE);
   async function getIP() {
     try {
       let __x = JSON.parse(sessionData);
+      // e.preventDefault();
+
       var postResponse = await postRequest(DATACONSTANT.GETIP, {
         Version: DATACONSTANT.Version,
         APPID: DATACONSTANT.APPID,
@@ -30,8 +34,9 @@ export const IPMaster = () => {
         SessionID: __x?.sessionID,
         Session: __x?.session,
       });
+      //console.log(postResponse?.data);
       setData(postResponse?.data);
-      // console.log("abcd meko test kra do", data);
+      console.log(data.length);
     } catch (error) {
       return {
         statusCode: -1,
@@ -41,49 +46,29 @@ export const IPMaster = () => {
   }
 
   async function deleteIP(id) {
-    swal({
-      title: "Delete This Plan?",
-      text: "Are you sure to delete!",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then((isDelete) => {
-      if (isDelete) {
-        del();
-        async function del() {
-          try {
-            let __x = JSON.parse(sessionData);
+    try {
+      let __x = JSON.parse(sessionData);
+      // e.preventDefault();
 
-            var postResponse = await postRequest(DATACONSTANT.DELETEIP, {
-              Version: DATACONSTANT.Version,
-              APPID: DATACONSTANT.APPID,
-              UserID: __x?.userID,
-              SessionID: __x?.sessionID,
-              Session: __x?.session,
-              ID: id ?? 0,
-              IsWLAPIAllowed: false,
-            });
-            if (postResponse.statuscode === 1) {
-              toast.success("Successfully Deleted");
-              getIP();
-            } else {
-              toast.error("API Not respond");
-            }
-          } catch (error) {
-            toast.error(error.code);
-            return {
-              statuscode: -1,
-              msg: error.code,
-            };
-          }
-        }
-      } else {
-        swal("Fail", "IP Delete Failed!", "error");
-      }
-    });
+      var postResponse = await postRequest(DATACONSTANT.DELETEIP, {
+        Version: DATACONSTANT.Version,
+        APPID: DATACONSTANT.APPID,
+        UserID: __x?.userID,
+        SessionID: __x?.sessionID,
+        Session: __x?.session,
+        ID: id ?? 0,
+        IsWLAPIAllowed: false,
+      });
+      // setData(postResponse?.data);
+      console.log(postResponse);
+      // setDeleteIP(true);
+    } catch (error) {
+      return {
+        statusCode: -1,
+        msg: error.code,
+      };
+    }
   }
-
-  let x = getCookie(DATACONSTANT.SETCOOKIE);
 
   const [show, setShow] = useState(false);
   const [balance, setBalance] = useState([]);
@@ -112,12 +97,14 @@ export const IPMaster = () => {
     }
   }
 
+  console.log("dbjsnlkxdmsa", balance);
   return (
     <div>
       <header id="topnav">
         <div className="topbar-main">
           <div className="container-fluid">
             <Leftbar />
+
             <div className="clearfix"></div>
           </div>
           <Navbar
@@ -132,7 +119,7 @@ export const IPMaster = () => {
         </div>{" "}
       </header>
 
-      <div id="__p" class="main-temp-body " style={{ marginTop: "8%" }}>
+      <div id="__p" class="main-temp-body " style={{ marginTop: "5%" }}>
         <div class="container-fluid">
           <div class="row">
             <input type="hidden" id="hdnIP" />
@@ -142,46 +129,21 @@ export const IPMaster = () => {
                 <div
                   class="card-header cus-bg text-white"
                   style={{
-                    backgroundColor: "rgb(96 93 175)",
+                    backgroundColor: "#313197",
                   }}
                 >
                   <i class="fas fa-link"></i> IPAddress Master
                   <div class="float-right">
-                    <div
-                      class="input-group"
-                      style={{
-                        borderBottom: "1px solid",
-                        background: "#605dafb",
-                      }}
-                    >
+                    <div class="input-group">
                       <input
                         id="txtSearch"
                         class="form-control text-left"
                         placeholder="Search IPAddress"
-                        style={{
-                          marginRight: "10px",
-                          border: "none",
-                          color: "#fff",
-                          background: "#605daf",
-                        }}
                       />
-                      <i
-                        class="fa fa-search"
-                        aria-hidden="true"
-                        style={{
-                          margin: "auto",
-                          marginRight: "5px",
-                          color: "#fff",
-                          background: "none",
-                          border: "none",
-                        }}
-                      ></i>
-
                       <div class="input-group-append">
                         <button
                           id="btnNew"
                           class="btn btn-default btn-sm"
-                          style={{ borderRadius: "2px" }}
                           onClick={() => {
                             setIPPopup(true);
                           }}
@@ -197,32 +159,6 @@ export const IPMaster = () => {
                       </div>
                     </div>
                   </div>
-                  {/* <div class="form-inline float-right">
-                    <div class="form-group has-search">
-                      <span class="fa fa-search form-control-feedback"></span>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Search IP Address"
-                      />
-                    </div>
-
-                    <button
-                      id="btnNew"
-                      class="btn btn-primary"
-                      onClick={() => {
-                        setIPPopup(true);
-                      }}
-                    >
-                      New
-                    </button>
-                    {IPPopup && (
-                      <IPMasterPOPUP
-                        IPPopup={IPPopup}
-                        setIPPopup={setIPPopup}
-                      />
-                    )}
-                  </div> */}
                 </div>
                 <div class="card-body p-1">
                   <div class="table-responsive calcHeight">
@@ -230,7 +166,7 @@ export const IPMaster = () => {
                       class="table table-bordered table-striped table-responsive-sm fixedHeader"
                       id="tblIPAddress"
                     >
-                      <thead class="bg-tableth" style={{ width: "10px" }}>
+                      <thead class="bg-tableth">
                         <tr>
                           <th>#</th>
                           <th>User</th>
@@ -257,17 +193,10 @@ export const IPMaster = () => {
                                 <td>{item.lastModified}</td>
 
                                 <td>
-                                  {item.isActive ? (
-                                    <label class="switch">
-                                      <input type="checkbox" checked />
-                                      <span class="slider round"></span>
-                                    </label>
-                                  ) : (
-                                    <label class="switch">
-                                      <input type="checkbox" />
-                                      <span class="slider round"></span>
-                                    </label>
-                                  )}
+                                  <label class="switch">
+                                    <input type="checkbox" />
+                                    <span class="slider round"></span>
+                                  </label>
                                 </td>
                                 <td>
                                   <i
@@ -286,13 +215,7 @@ export const IPMaster = () => {
                           })}
                         </tbody>
                       ) : (
-                        <tbody>
-                          <tr>
-                            <td colspan="8">
-                              <h3 class="text-center">Data Not Found</h3>
-                            </td>
-                          </tr>
-                        </tbody>
+                        <h3 className="text-center">Data Not Found</h3>
                       )}
                     </table>
                   </div>

@@ -102,8 +102,8 @@ function Rightbar({ show1, setShow1, getBalance, balance }) {
 
       <div className="menu-extras topbar-custom">
         <ul className="list-unstyled float-right mb-0">
-          <li className="fa fa-inr dropdown notification-list">
-            <i class="fa fa-inr" aria-hidden="true"></i>
+          <li className="fa dropdown notification-list">
+            {/* <i class="fa fa-inr" aria-hidden="true"></i> */}
             <span
               style={{
                 fontSize: "16px",
