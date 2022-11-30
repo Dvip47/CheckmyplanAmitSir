@@ -132,13 +132,13 @@ export const IPMaster = () => {
         </div>{" "}
       </header>
 
-      <div id="__p" class="main-temp-body " style={{ marginTop: "8%" }}>
+      <div id="__p" class="main-temp-body " style={{ marginTop: "86px" }}>
         <div class="container-fluid">
           <div class="row">
             <input type="hidden" id="hdnIP" />
             <input type="hidden" id="hdnIPType" />
             <div class="col-md-12">
-              <div class="card mt-5">
+              <div class="card cus-card mt-5">
                 <div
                   class="card-header cus-bg text-white"
                   style={{
@@ -233,10 +233,10 @@ export const IPMaster = () => {
                       <thead class="bg-tableth" style={{ width: "10px" }}>
                         <tr>
                           <th>#</th>
-                          <th>User</th>
+                          {/* <th>User</th> */}
                           <th>Mobile Number</th>
                           <th>IPAddress</th>
-                          <th>Type</th>
+                          {/* <th>Type</th> */}
                           <th>LastModified</th>
                           <th>Status</th>
                           <th>Action</th>
@@ -250,10 +250,10 @@ export const IPMaster = () => {
                             return (
                               <tr data-item-id="6">
                                 <td>{i + 1}</td>
-                                <td>{item.outletName}</td>
+                                {/* <td>{item.outletName}</td> */}
                                 <td>{item.mobileNo} </td>
                                 <td>{item.ip}</td>
-                                <td>{item.ipType}</td>
+                                {/* <td>{item.ipType}</td> */}
                                 <td>{item.lastModified}</td>
 
                                 <td>
