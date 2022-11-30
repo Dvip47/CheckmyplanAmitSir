@@ -2751,7 +2751,7 @@ body {
   color: #8c9ea9;
 }
 .container-fluid {
-  width: 95%;
+  width: 100%;
 }
 #topnav {
   position: fixed;
@@ -3717,4 +3717,8 @@ body {
   font-size: 21px;
   position: relative;
   left: 7px;
+}
+.cus-card {
+  position: relative;
+  top: 5px;
 }

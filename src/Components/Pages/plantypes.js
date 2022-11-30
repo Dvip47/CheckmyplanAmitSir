@@ -281,9 +281,9 @@ export default function PlanTypes() {
                             </div>
                           </div>
 
-                          <div className="generic_price_tag clearfix">
-                            {/* <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2042px-WhatsApp.svg.png"> */}
-                          </div>
+                          {/* <div className="generic_price_tag clearfix">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2042px-WhatsApp.svg.png">
+                          </div> */}
                         </div>
 
                         <div className="generic_feature_list">
@@ -355,9 +355,9 @@ export default function PlanTypes() {
                           </div> */}
                           </div>
 
-                          <div className="generic_price_tag clearfix">
-                            {/* <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2042px-WhatsApp.svg.png"> */}
-                          </div>
+                          {/* <div className="generic_price_tag clearfix">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2042px-WhatsApp.svg.png">
+                          </div> */}
                         </div>
 
                         <div className="generic_feature_list">
@@ -428,9 +428,9 @@ export default function PlanTypes() {
                           </div> */}
                           </div>
 
-                          <div className="generic_price_tag clearfix">
-                            {/* <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2042px-WhatsApp.svg.png"> */}
-                          </div>
+                          {/* <div className="generic_price_tag clearfix">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2042px-WhatsApp.svg.png">
+                          </div> */}
                         </div>
 
                         <div className="generic_feature_list">
