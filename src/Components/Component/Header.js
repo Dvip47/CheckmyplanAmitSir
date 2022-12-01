@@ -9,8 +9,11 @@ function Topbar() {
       <header id="topnav">
         <div className="topbar-main">
           <div className="container-fluid">
-            <Leftbar />
-            <Rightbar />
+          <div className="d-flex">
+              <Leftbar />
+              <Rightbar />
+            
+              </div>
             <div className="clearfix"></div>
           </div>
         </div>

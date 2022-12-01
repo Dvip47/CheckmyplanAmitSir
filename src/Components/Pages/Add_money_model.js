@@ -78,8 +78,7 @@ function Add_Money_model({
             </button>
           </div>
           <div class="modal-body">
-            <div class="container">
-              <div class="">
+            
                 <div class="pricing rounded d-flex justify-content-between">
                   <div class="images d-flex flex-row align-items-center p-3">
                     <img src={wallet} class="rounded" width="60" />
@@ -175,8 +174,7 @@ function Add_Money_model({
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      
   );
 }
 

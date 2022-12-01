@@ -111,16 +111,7 @@ function Rightbar({ show1, setShow1, getBalance, balance }) {
                 fontFamily: "sans-serif",
               }}
             >
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Indian_Rupee_symbol.svg/1200px-Indian_Rupee_symbol.svg.png"
-                style={{
-                  width: "10px",
-                  position: "relative",
-                  left: "-2px",
-                  bottom: "2px",
-                }}
-              />
-              {balance}
+              ₹ {balance}
             </span>
             <a
               className="mt-1 nav-link dropdown-toggle arrow-none waves-effect"

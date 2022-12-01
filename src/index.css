@@ -34,7 +34,7 @@ code {
   }
 
   #generic_price_table {
-    margin: 165px 0 0px 0 !important;
+    margin: 70px 0 0px 0 !important;
   }
 
   .add-btn {
@@ -48,4 +48,62 @@ code {
   #navigation {
     position: static !important;
   }
+
+  .mob-version{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-btn{
+    position: absolute!important;
+    right:10px!important;
+    background-color: #eaeaea!important;
+  }
+
+  .navbar {
+    padding: 0rem!important;
 }
+.nav-item{
+  padding: 10px 0;
+    border-bottom: 1px solid #4c49a5;
+    margin-bottom: 10px;
+    margin-right: 0px!important;
+}
+}
+
+.nav-item{
+  margin-right: 20px;
+}
+
+.nav-item a {
+  color: #fff;
+}
+
+.nav-item a:hover {
+  color: #fdec00;
+}
+
+.nav-item a i {
+  margin-right: 10px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  height: 7px;
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #eee;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: #2e2f46;
+}
+
+
+
+

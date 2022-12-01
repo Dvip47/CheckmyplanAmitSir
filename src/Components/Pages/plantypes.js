@@ -219,10 +219,12 @@ export default function PlanTypes() {
       {/* <ToastContainer /> */}
       <header id="topnav">
         <div className="topbar-main">
-          <div className="container-fluid">
+          {/* <div className="container-fluid">
+          
             <Leftbar />
             <div className="clearfix"></div>
-          </div>
+           
+          </div> */}
           <Navbar
             show={show}
             setShow={setShow}

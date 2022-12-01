@@ -117,7 +117,8 @@ export const IPMaster = () => {
       <header id="topnav">
         <div className="topbar-main">
           <div className="container-fluid">
-            <Leftbar />
+          
+            {/* <Leftbar /> */}
             <div className="clearfix"></div>
           </div>
           <Navbar
@@ -132,7 +133,7 @@ export const IPMaster = () => {
         </div>{" "}
       </header>
 
-      <div id="__p" class="main-temp-body " style={{ marginTop: "86px" }}>
+      <div id="__p" class="main-temp-body " style={{ marginTop: "100px" }}>
         <div class="container-fluid">
           <div class="row">
             <input type="hidden" id="hdnIP" />
