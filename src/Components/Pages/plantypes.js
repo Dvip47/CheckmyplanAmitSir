@@ -1,6 +1,6 @@
 import React from "react";
-import Leftbar from "./Leftbar";
 import Navbar from "./Navbar";
+import History from "./History";
 import "../../assets/css/plantype.css";
 import { DATACONSTANT } from "../../constants/data.constant";
 import { postRequest } from "../../Services/API_service";
@@ -492,6 +492,7 @@ export default function PlanTypes() {
           </div>
         </div>
       </section>
+      <History />
     </div>
   );
 }

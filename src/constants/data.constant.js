@@ -42,6 +42,8 @@ export const DATACONSTANT = {
   GETIP: "/ApiUserAfterLogin/GetIPAddress",
 
   DELETEIP: "/ApiUserAfterLogin/RemoveIPAddress",
+
+  GETAPILIMIT: "/ApiUserAfterLogin/GetUserAPIhitlimit",
 };
 
 // "proxy": "http://admin.checkmyplan.in",
