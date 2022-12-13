@@ -170,7 +170,8 @@ function Rightbar({ show1, setShow1, getBalance, balance }) {
                       onClick={handleCopy}
                     ></i>
                   </div>
-                </div>
+                              </div>
+                              <div className="dropdown-divider"></div>
                 <a className="dropdown-item" href="">
                   {JSON.parse(x)?.emailID}
                 </a>
@@ -185,31 +186,22 @@ function Rightbar({ show1, setShow1, getBalance, balance }) {
                   <i className="fa fa-key iconfm m-r-5 text-muted"></i> Change
                   Password
                 </a>
+
                 {modal && (
                   <ChangePasswordModal modal={modal} setModal={setModal} />
                 )}
                 <div className="dropdown-divider"></div>
                 <a
-                  className="dropdown-item"
-                  href="https://admin.checkmyplan.in/apidoc?t=1"
-                  target="_blank"
-                >
-                  <i className="fa fa-file iconfm m-r-5 text-muted"></i> API
-                  Documentation
-                </a>
-                <div className="dropdown-divider"></div>
-                <a
                   className="cursor-pointer"
-                  href="https://admin.checkmyplan.in/doc/checkmyplan.pdf"
+                  href="https://checkmyplan.in/checkmyplan.pdf"
                   target="_blank"
                 >
                   <i
                     className="fa fa-download m-r-5 text-muted "
                     style={{ marginLeft: "15px", fontSize: "20px" }}
-                  ></i>{" "}
+                  ></i>
                   Download
                 </a>
-
                 <div className="dropdown-divider"></div>
                 <a className="dropdown-item cursor-pointer" onClick={logout}>
                   <i className="mdi mdi-logout m-r-5 text-muted"></i> Logout
