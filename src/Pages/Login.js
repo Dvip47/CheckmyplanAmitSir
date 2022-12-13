@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import "../Component/Login.css";
-import { postRequest } from "../../Services/API_service";
-import { setCookie } from "../Library/Cookies";
+import "../Components/Login.css";
+import { postRequest } from "../Services/API_service";
+import { setCookie } from "../Services/Cookies";
 import { useNavigate } from "react-router";
-import { DATACONSTANT } from "../../constants/data.constant";
+import { DATACONSTANT } from "../constants/data.constant";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -100,7 +100,7 @@ export default function Login({ buttonDisable, setButtonDisable }) {
                     <span
                       onClick={() => setEyeIcon(!eyeIcon)}
                       toggle="#password-field"
-                      class={`fa fa-fw ${
+                      className={`fa fa-fw ${
                         eyeIcon ? "fa-eye fa-eye-slash" : "fa-eye fa-eye"
                       } field-icon toggle-password mr-2`}
                     ></span>

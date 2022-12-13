@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
-import "../../assets/css/addMoney.css";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import "../assets/css/addMoney.css";
 import { useNavigate } from "react-router";
-import { postRequest } from "../../Services/API_service";
-import { DATACONSTANT } from "../../constants/data.constant";
+import { postRequest } from "../Services/API_service";
+import { DATACONSTANT } from "../constants/data.constant";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { getCookie } from "../Library/Cookies";
+import { getCookie } from "../Services/Cookies";
 
 function ChangePasswordModal({ setModal }) {
   const navigate = useNavigate();
@@ -15,7 +14,6 @@ function ChangePasswordModal({ setModal }) {
     passwordNew: "",
     passwordNe: "",
   });
-  console.log("............", formData);
 
   let sessionData = getCookie(DATACONSTANT.SETCOOKIE);
   let msg = "";
@@ -62,56 +60,56 @@ function ChangePasswordModal({ setModal }) {
   };
 
   return (
-    <div class="modal show" style={{ display: "block" }} id="myModal">
-      <div class="modal-dialog ">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3 class="modal-title">CHANGE PASSWORD</h3>
+    <div className="modal show" style={{ display: "block" }} id="myModal">
+      <div className="modal-dialog ">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h3 className="modal-title">CHANGE PASSWORD</h3>
             <button
               type="button"
-              class="close"
+              className="close"
               data-dismiss="modal"
               onClick={() => setModal(false)}
             >
               ×
             </button>
           </div>
-          <div class="modal-body">
-            <div class="container">
-              <div class="credit rounded mt-2 justify-content-between align-items-center">
-                <div class="mt-3">
+          <div className="modal-body">
+            <div className="container">
+              <div className="credit rounded mt-2 justify-content-between align-items-center">
+                <div className="mt-3">
                   <form>
-                    <div class="form-group">
+                    <div className="form-group">
                       <label for="exampleInputPassword1">
                         Current Password
                       </label>
                       <input
                         type="password"
-                        class="form-control"
+                        className="form-control"
                         placeholder="Password"
                         required=""
                         name="passwordOld"
                         onChange={inputHandler}
                       />
                     </div>{" "}
-                    <div class="form-group">
+                    <div className="form-group">
                       <label for="exampleInputPassword1">New Password</label>
                       <input
                         type="password"
-                        class="form-control"
+                        className="form-control"
                         placeholder="New Password"
                         required=""
                         name="passwordNew"
                         onChange={inputHandler}
                       />
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                       <label for="exampleInputPassword1">
                         Confirm Password
                       </label>
                       <input
                         type="password"
-                        class="form-control"
+                        className="form-control"
                         placeholder="Confirm Password"
                         required=""
                         name="passwordNe"
@@ -121,14 +119,14 @@ function ChangePasswordModal({ setModal }) {
                     </div>
                     <button
                       type="button"
-                      class="btn btn-primary"
+                      className="btn btn-primary"
                       onClick={changePWD}
                     >
                       Submit
                     </button>
                     <button
                       type="button"
-                      class="btn btn-primary ml-2"
+                      className="btn btn-primary ml-2"
                       onClick={() => setModal(false)}
                     >
                       Cancel

@@ -1,105 +1,22 @@
 import React from "react";
 import Navbar from "./Navbar";
 import History from "./History";
-import "../../assets/css/plantype.css";
-import { DATACONSTANT } from "../../constants/data.constant";
-import { postRequest } from "../../Services/API_service";
-import { getCookie } from "../Library/Cookies";
+import "../assets/css/plantype.css";
+import { DATACONSTANT } from "../constants/data.constant";
+import { postRequest } from "../Services/API_service";
+import { getCookie } from "../Services/Cookies";
 import { useState } from "react";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Icon from "../../assets/images/greenInrIcon.png";
+import Icon from "../assets/images/greenInrIcon.png";
 import swal from "sweetalert";
 
 export default function PlanTypes() {
   useEffect(() => {
     getPlan();
   }, []);
-  // let data = {
-  //   statuscode: 1,
-  //   msg: "Success",
-  //   data: [
-  //     {
-  //       packageId: 1,
-  //       slab: "Basic Plan 1 Year",
-  //       packageCost: 5000.0,
-  //       isActive: true,
-  //       remark: "onles Plan Api Purchasing! after amount no Refunding",
-  //       validityInDays: 365,
-  //       dailyHitCount: 2000,
-  //       serviceName: [
-  //         "Recharge Plan",
-  //         "DTH Plan",
-  //         "R-Offer",
-  //         "DTH Cust Info",
-  //         "DTH Heavy-Refresh",
-  //         "OperatorCheck",
-  //       ],
-  //     },
-  //     {
-  //       packageId: 2,
-  //       slab: "Standard Plan 1 Year",
-  //       packageCost: 9999.0,
-  //       isActive: true,
-  //       remark: "onles Plan Api Purchasing! after amount no Refunding",
-  //       validityInDays: 365,
-  //       dailyHitCount: 20000,
-  //       serviceName: [
-  //         "Recharge Plan",
-  //         "DTH Plan",
-  //         "R-Offer",
-  //         "DTH Cust Info",
-  //         "DTH Heavy-Refresh",
-  //         "OperatorCheck",
-  //       ],
-  //     },
-  //     {
-  //       packageId: 4,
-  //       slab: "Basic Plan 30days",
-  //       packageCost: 500.0,
-  //       isActive: true,
-  //       remark: "onles Plan Api Purchasing! after amount no Refunding",
-  //       validityInDays: 30,
-  //       dailyHitCount: 2500,
-  //       serviceName: [
-  //         "Recharge Plan",
-  //         "DTH Plan",
-  //         "R-Offer",
-  //         "DTH Cust Info",
-  //         "DTH Heavy-Refresh",
-  //         "OperatorCheck",
-  //       ],
-  //     },
-  //     {
-  //       packageId: 5,
-  //       slab: "Standard Plan 30days",
-  //       packageCost: 999.0,
-  //       isActive: true,
-  //       remark: "Plan Api Purchasing! after amount no Refunding",
-  //       validityInDays: 30,
-  //       dailyHitCount: 10000,
-  //       serviceName: [
-  //         "Recharge Plan",
-  //         "DTH Plan",
-  //         "R-Offer",
-  //         "DTH Cust Info",
-  //         "DTH Heavy-Refresh",
-  //         "OperatorCheck",
-  //       ],
-  //     },
-  //     {
-  //       packageId: 6,
-  //       slab: "Simple Plan 30days",
-  //       packageCost: 299.0,
-  //       isActive: true,
-  //       remark: "Plan Api Purchasing! after amount no Refunding",
-  //       validityInDays: 30,
-  //       dailyHitCount: 1000,
-  //       serviceName: ["Recharge Plan", "DTH Plan", "R-Offer", "DTH Cust Info"],
-  //     },
-  //   ],
-  // };
+
   const [input, setInput] = useState({
     amount: "",
     oid: 0,
@@ -120,7 +37,6 @@ export default function PlanTypes() {
         SessionID: __x?.sessionID,
         Session: __x?.session,
       });
-      console.log("plans", postResponse);
       setData(postResponse?.data);
     } catch (error) {
       return {
@@ -191,7 +107,6 @@ export default function PlanTypes() {
         swal("Fail", "Plan Purchase Failed!", "error");
       }
     });
-    // document.getElementById("demo").innerHTML = text;
   }
 
   async function getBalance() {
@@ -204,7 +119,6 @@ export default function PlanTypes() {
         SessionID: __x?.sessionID,
         Session: __x?.session,
       });
-      console.log("balance", postResponse?.bBalance);
       setBalance(postResponse?.bBalance);
     } catch (error) {
       return {
@@ -216,15 +130,8 @@ export default function PlanTypes() {
 
   return (
     <div>
-      {/* <ToastContainer /> */}
       <header id="topnav">
         <div className="topbar-main">
-          {/* <div className="container-fluid">
-          
-            <Leftbar />
-            <div className="clearfix"></div>
-           
-          </div> */}
           <Navbar
             show={show}
             setShow={setShow}
@@ -235,15 +142,13 @@ export default function PlanTypes() {
             setBalance={setBalance}
             getPlan={getPlan}
           />
-        </div>{" "}
-      </header>{" "}
+        </div>
+      </header>
       <section id="generic_price_table">
         <div>
           {loader && (
             <div
               style={{
-                // top: "-165px",
-                // left: "-555px",
                 position: "absolute",
                 height: "100%",
                 width: "100%",
@@ -255,8 +160,8 @@ export default function PlanTypes() {
                 color: "#fff",
               }}
             >
-              <div class="spinner-border m-5" role="status">
-                <span class="sr-only">Loading...</span>
+              <div className="spinner-border m-5" role="status">
+                <span className="sr-only">Loading...</span>
               </div>
             </div>
           )}
@@ -282,12 +187,7 @@ export default function PlanTypes() {
                               <span>{data.isActive ? "Active" : ""}</span>
                             </div>
                           </div>
-
-                          {/* <div className="generic_price_tag clearfix">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2042px-WhatsApp.svg.png">
-                          </div> */}
                         </div>
-
                         <div className="generic_feature_list">
                           <h4>
                             {" "}
@@ -328,16 +228,6 @@ export default function PlanTypes() {
                           className="generic_price_btn clearfix"
                           style={{ height: "26px" }}
                         >
-                          {/* <a
-                            data-toggle="confirmation"
-                            className="btn mr-2"
-                            onClick={() => buyPlan2(data.packageId)}
-                          >
-                            Buy Plan
-                          </a>
-                          <a className="btn-primary btn text-white " href="">
-                            Renew
-                          </a> */}
                         </div>
                       </div>
                     </div>
@@ -352,16 +242,8 @@ export default function PlanTypes() {
                       <div className="generic_content clearfix">
                         <div className="generic_head_price clearfix">
                           <div className="box">
-                            {/* <div className="ribbon ribbon-top-right">
-                            <span>{data.isActive ? "Active" : ""}</span>
-                          </div> */}
                           </div>
-
-                          {/* <div className="generic_price_tag clearfix">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2042px-WhatsApp.svg.png">
-                          </div> */}
                         </div>
-
                         <div className="generic_feature_list">
                           <h4>
                             {" "}
@@ -402,15 +284,11 @@ export default function PlanTypes() {
                           className="generic_price_btn clearfix"
                           onClick={() => {
                             buyPlan2(data.packageId, data.packageCost);
-                            // setShow(false);
                           }}
                         >
                           <a data-toggle="confirmation" className="btn mr-2">
                             Buy Plan
                           </a>
-                          {/* <a className="btn-primary btn text-white " href="">
-                          Renew
-                        </a> */}
                         </div>
                       </div>
                     </div>
@@ -425,16 +303,8 @@ export default function PlanTypes() {
                       <div className="generic_content clearfix">
                         <div className="generic_head_price clearfix">
                           <div className="box">
-                            {/* <div className="ribbon ribbon-top-right">
-                            <span>{data.isActive ? "Active" : ""}</span>
-                          </div> */}
                           </div>
-
-                          {/* <div className="generic_price_tag clearfix">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2042px-WhatsApp.svg.png">
-                          </div> */}
                         </div>
-
                         <div className="generic_feature_list">
                           <h4>
                             {" "}
@@ -470,15 +340,7 @@ export default function PlanTypes() {
                             </li>
                           </ul>
                         </div>
-
                         <div className="generic_price_btn clearfix">
-                          {/* <a
-                          data-toggle="confirmation"
-                          className="btn mr-2"
-                          onClick={() => buyPlan(data.packageId)}
-                        >
-                          Buy Plan
-                        </a> */}
                           <a className="btn-primary btn text-white " href="">
                             Renew
                           </a>

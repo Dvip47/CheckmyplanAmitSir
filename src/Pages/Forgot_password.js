@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router";
-import { postRequest } from "../../Services/API_service";
-import { DATACONSTANT } from "../../constants/data.constant";
+import { postRequest } from "../Services/API_service";
+import { DATACONSTANT } from "../constants/data.constant";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -106,9 +106,9 @@ const Forgot_password = () => {
                   </div>
                 </div>
 
-                <div class="form-group m-t-10 mb-0 row">
-                  <div class="col-12 m-t-20 text-center">
-                    <NavLink to="/" class="text-muted">
+                <div className="form-group m-t-10 mb-0 row">
+                  <div className="col-12 m-t-20 text-center">
+                    <NavLink to="/" className="text-muted">
                       Back to Login
                     </NavLink>
                   </div>
@@ -119,8 +119,6 @@ const Forgot_password = () => {
         </div>
       </div>
     </div>
-    //   </div>
-    // </div>
   );
 };
 
