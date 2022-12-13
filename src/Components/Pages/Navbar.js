@@ -24,47 +24,60 @@ function Navbar({
     <div>
       {/* <header id="topnav">
         <div className="topbar-main">*/}
-          <div className="container-fluid"> 
-          <div className="mob-version">
-          <button class="navbar-toggler nav-btn" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="mdi mdi-menu"></span>
-        </button>
-            <Leftbar />
-            <Rightbar
-              show1={show1}
-              setShow1={setShow1}
-              setShow={setShow}
-              getBalance={getBalance}
-              balance={balance}
-              setBalance={setBalance}
-            />
+      <div className="container-fluid">
+        <div className="mob-version">
+          <button
+            class="navbar-toggler nav-btn"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarTogglerDemo03"
+            aria-controls="navbarTogglerDemo03"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="mdi mdi-menu"></span>
+          </button>
+          <Leftbar />
+          <Rightbar
+            show1={show1}
+            setShow1={setShow1}
+            setShow={setShow}
+            getBalance={getBalance}
+            balance={balance}
+            setBalance={setBalance}
+          />
 
-
-            <div className="clearfix"></div>
-            {/* </div>*/}
-          </div>
-           
+          <div className="clearfix"></div>
+          {/* </div>*/}
         </div>
+      </div>
 
-        <div className="navbar-custom">
-          
-          <div className="container-fluid">
+      <div className="navbar-custom">
+        <div className="container-fluid">
           <nav class="navbar navbar-expand-sm">
-       
-
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item">
-            <NavLink to="/">
-                    <i className="dripicons-device-desktop"></i>Plan Types
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                  <NavLink to="/">
+                    <i className="fa fa-tasks"></i>Plan Types
                   </NavLink>
-            </li>
-            <li class="nav-item">
-            <NavLink to="/IPMaster">
+                </li>
+                <li class="nav-item">
+                  <NavLink to="/IPMaster">
                     <i className="fa fa-server"></i>IPAddress Master
                   </NavLink>
-            </li>
-            {/* <li class="nav-item dropdown dmenu">
+                </li>
+                <li class="nav-item">
+                  <NavLink to="/Circlecode">
+                    <i className="fas fa-circle"></i>Circle Code
+                  </NavLink>
+                </li>
+                <li class="nav-item">
+                  <NavLink to="/Operatortype">
+                    <i className="fa fa-television"></i>Operator Type
+                  </NavLink>
+                </li>
+                {/* <li class="nav-item dropdown dmenu">
             <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
               Our Service
             </a>
@@ -80,39 +93,38 @@ function Navbar({
           <li class="nav-item">
             <a class="nav-link" href="#">Call</a>
           </li> */}
-           
-          </ul>
-          <div class="social-part">
-          <button
-                className="add-btn btn btn-danger mt-2 mb-2"
-                onClick={() => setShow(true)}
-              >
-                ADD MONEY
-              </button>
-              {show && (
-                <Add_Money_model
-                  show={show}
-                  setShow={setShow}
-                  setPaymentGatewayState={setPaymentGatewayState}
-                  input={input}
-                  setInput={setInput}
-                />
-              )}
-              {paymentGatewayState && (
-                <PaymentGatewayModal
-                  getBalance={getBalance}
-                  paymentGatewayState={paymentGatewayState}
-                  setPaymentGatewayState={setPaymentGatewayState}
-                  input={input}
-                  setInput={setInput}
-                  getPlan={getPlan}
-                />
-              )}
-          </div>
-        </div>
-      </nav>
+              </ul>
+              <div class="social-part">
+                <button
+                  className="add-btn btn btn-danger mt-2 mb-2"
+                  onClick={() => setShow(true)}
+                >
+                  ADD MONEY
+                </button>
+                {show && (
+                  <Add_Money_model
+                    show={show}
+                    setShow={setShow}
+                    setPaymentGatewayState={setPaymentGatewayState}
+                    input={input}
+                    setInput={setInput}
+                  />
+                )}
+                {paymentGatewayState && (
+                  <PaymentGatewayModal
+                    getBalance={getBalance}
+                    paymentGatewayState={paymentGatewayState}
+                    setPaymentGatewayState={setPaymentGatewayState}
+                    input={input}
+                    setInput={setInput}
+                    getPlan={getPlan}
+                  />
+                )}
+              </div>
+            </div>
+          </nav>
 
-            {/* <div id="navigation">
+          {/* <div id="navigation">
               <ul className="navigation-menu">
                 <li className="has-submenu">
                   <NavLink to="/">
@@ -152,8 +164,8 @@ function Navbar({
                 />
               )}
             </div> */}
-          </div>
         </div>
+      </div>
       {/* </header> */}
     </div>
   );

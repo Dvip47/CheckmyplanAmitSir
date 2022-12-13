@@ -48,7 +48,7 @@ export const postRequest = async (endpoint, data = null) => {
     })
     .then((res) => res.data)
     .catch((err) => {
-      console.log(`Error in post request to entpoint ${endpoint}`, err);
+      console.log(`Error in post request to endpoint ${endpoint}`, err);
       throw err;
     });
 };

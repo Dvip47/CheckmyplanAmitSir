@@ -11,6 +11,8 @@ import Register from "./Components/Pages/Register";
 import { IPMaster } from "./Components/Pages/IPMaster";
 import "./global";
 import { DATACONSTANT } from "./constants/data.constant";
+import { Circlecode } from "./Components/Pages/Circlecode";
+import { Operatortype } from "./Components/Pages/Operatortype";
 
 function App() {
   const navigate = useNavigate();
@@ -38,6 +40,8 @@ function App() {
           <Route exact path="/" element={<PlanTypes />} />
           <Route exact path="/Order_Summary" element={<Order_Summary />} />
           <Route exact path="/IPMaster" element={<IPMaster />} />
+          <Route exact path="/Circlecode" element={<Circlecode />} />
+          <Route exact path="/Operatortype" element={<Operatortype />} />
         </Routes>
       ) : (
         <Routes>

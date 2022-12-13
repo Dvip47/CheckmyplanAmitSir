@@ -1,42 +1,16 @@
-import React, { useEffect, useState } from "react";
-import Leftbar from "./Leftbar";
-import Navbar from "./Navbar";
-import Footer from "../Component/Footer";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router";
-import { IPMasterPOPUP } from "./IPMasterPOPUP";
-import "../../assets/css/IP.css";
-import { postRequest } from "../../Services/API_service";
-import { DATACONSTANT } from "../../constants/data.constant";
-import { getCookie } from "../Library/Cookies";
-import Rightbar from "./Rightbar";
+import React from "react";
+import { useEffect, useState } from "react";
+import { getCookie } from "../../Library/Cookies";
+import { DATACONSTANT } from "../../../constants/data.constant";
+import { getRequest } from "../../../Services/API_service";
 
-export const IPMaster = () => {
-  useEffect(() => {
-    getIP();
-  }, []);
-  const [IPPopup, setIPPopup] = useState(false);
-  let sessionData = getCookie(DATACONSTANT.SETCOOKIE);
+function Circle() {
   const [data, setData] = useState([]);
-  const [delIP, setDeleteIP] = useState(false);
 
-  let x = getCookie(DATACONSTANT.SETCOOKIE);
-  async function getIP() {
+  async function getCircle() {
     try {
-      let __x = JSON.parse(sessionData);
-      // e.preventDefault();
-
-      var postResponse = await postRequest(DATACONSTANT.GETIP, {
-        Version: DATACONSTANT.Version,
-        APPID: DATACONSTANT.APPID,
-        UserID: __x?.userID,
-        SessionID: __x?.sessionID,
-        Session: __x?.session,
-      });
-      //console.log(postResponse?.data);
+      var postResponse = await getRequest(DATACONSTANT.CIRCLE);
       setData(postResponse?.data);
-      console.log(data.length);
     } catch (error) {
       return {
         statusCode: -1,
@@ -44,83 +18,12 @@ export const IPMaster = () => {
       };
     }
   }
-
-  async function deleteIP(id) {
-    try {
-      let __x = JSON.parse(sessionData);
-      // e.preventDefault();
-
-      var postResponse = await postRequest(DATACONSTANT.DELETEIP, {
-        Version: DATACONSTANT.Version,
-        APPID: DATACONSTANT.APPID,
-        UserID: __x?.userID,
-        SessionID: __x?.sessionID,
-        Session: __x?.session,
-        ID: id ?? 0,
-        IsWLAPIAllowed: false,
-      });
-      // setData(postResponse?.data);
-      console.log(postResponse);
-      // setDeleteIP(true);
-    } catch (error) {
-      return {
-        statusCode: -1,
-        msg: error.code,
-      };
-    }
-  }
-
-  const [show, setShow] = useState(false);
-  const [balance, setBalance] = useState([]);
-  const [input, setInput] = useState({
-    amount: "",
-    oid: 0,
+  useEffect(() => {
+    getCircle();
   });
-
-  async function getBalance() {
-    try {
-      let __x = JSON.parse(x);
-      var postResponse = await postRequest(DATACONSTANT.BALANCE_URL, {
-        version: DATACONSTANT.Version,
-        APPID: DATACONSTANT.APPID,
-        UserID: __x?.userID,
-        SessionID: __x?.sessionID,
-        Session: __x?.session,
-      });
-      console.log("balance", postResponse?.bBalance);
-      setBalance(postResponse?.bBalance);
-    } catch (error) {
-      return {
-        statuscode: -1,
-        msg: error.code,
-      };
-    }
-  }
-
-  console.log("dbjsnlkxdmsa", balance);
   return (
-    <div>
-      <header id="topnav">
-        <div className="topbar-main">
-          <div className="container-fluid">
-            
-            <Leftbar />
-
-            <div className="clearfix"></div>
-          </div>
-          <Navbar
-            show={show}
-            setShow={setShow}
-            input={input}
-            setInput={setInput}
-            getBalance={getBalance}
-            balance={balance}
-            setBalance={setBalance}
-          />
-        </div>{" "}
-      </header>
-
-      <div id="__p" class="main-temp-body " style={{ marginTop: "5%" }}>
+    <>
+      <div id="__p" class="main-temp-body " style={{ marginTop: "8%" }}>
         <div class="container-fluid">
           <div class="row">
             <input type="hidden" id="hdnIP" />
@@ -133,33 +36,7 @@ export const IPMaster = () => {
                     backgroundColor: "#313197",
                   }}
                 >
-                  <i class="fas fa-link"></i> IPAddress Master
-                  <div class="float-right">
-                    <div class="input-group">
-                      <input
-                        id="txtSearch"
-                        class="form-control text-left"
-                        placeholder="Search IPAddress"
-                      />
-                      <div class="input-group-append">
-                        <button
-                          id="btnNew"
-                          class="btn btn-default btn-sm"
-                          onClick={() => {
-                            setIPPopup(true);
-                          }}
-                        >
-                          New
-                        </button>
-                        {IPPopup && (
-                          <IPMasterPOPUP
-                            IPPopup={IPPopup}
-                            setIPPopup={setIPPopup}
-                          />
-                        )}
-                      </div>
-                    </div>
-                  </div>
+                  <i class="fas fa-link"></i> All Circle
                 </div>
                 <div class="card-body p-1">
                   <div class="table-responsive calcHeight">
@@ -170,50 +47,24 @@ export const IPMaster = () => {
                       <thead class="bg-tableth">
                         <tr>
                           <th>#</th>
-                          <th>User</th>
-                          <th>Mobile Number</th>
-                          <th>IPAddress</th>
-                          <th>Type</th>
-                          <th>LastModified</th>
-                          <th>Status</th>
-                          <th>Action</th>
+                          <th>Circle</th>
+                          <th>Code</th>
                         </tr>
                       </thead>
                       {data.length !== 0 ? (
                         <tbody>
-                          {/* {data?.map((data, index) => { */}
-                          {/* return ( */}
                           {data?.map((item, i) => {
                             return (
                               <tr data-item-id="6">
                                 <td>{i + 1}</td>
-                                <td>{item.outletName}</td>
-                                <td>{item.mobileNo} </td>
-                                <td>{item.ip}</td>
-                                <td>{item.ipType}</td>
-                                <td>{item.lastModified}</td>
-
-                                <td>
-                                  <label class="switch">
-                                    <input type="checkbox" />
-                                    <span class="slider round"></span>
-                                  </label>
-                                </td>
-                                <td>
-                                  <i
-                                    class="fa fa-trash"
-                                    aria-hidden="true"
-                                    style={{ color: "red" }}
-                                    onClick={() => {
-                                      deleteIP(item.id);
-                                      getIP();
-                                    }}
-                                    // onClick={deleteIP(item.id)}
-                                  ></i>
-                                </td>
+                                <td>{item.circle}</td>
+                                <td>{item.code} </td>
                               </tr>
                             );
                           })}
+
+                          {/* ); */}
+                          {/* })} */}
                         </tbody>
                       ) : (
                         <h3 className="text-center">Data Not Found</h3>
@@ -226,6 +77,8 @@ export const IPMaster = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
-};
+}
+
+export default Circle;

@@ -200,7 +200,20 @@ function Rightbar({ show1, setShow1, getBalance, balance }) {
                 >
                   <i class="fa fa-file iconfm m-r-5 text-muted"></i> API
                   Documentation
-                </a>{" "}
+                </a>
+                <div class="dropdown-divider"></div>
+                <a
+                  class="cursor-pointer"
+                  href="https://admin.checkmyplan.in/doc/checkmyplan.pdf"
+                  target="_blank"
+                >
+                  <i
+                    class="fa fa-download m-r-5 text-muted "
+                    style={{ marginLeft: "15px", fontSize: "20px" }}
+                  ></i>{" "}
+                  Download
+                </a>
+
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item cursor-pointer" onClick={logout}>
                   <i class="mdi mdi-logout m-r-5 text-muted"></i> Logout
