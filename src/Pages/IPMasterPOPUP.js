@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import "../../assets/css/addMoney.css";
-import { useNavigate } from "react-router";
+import React, { useState } from "react";
+import "../assets/css/addMoney.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { postRequest } from "../../Services/API_service";
-import { DATACONSTANT } from "../../constants/data.constant";
-import { getCookie } from "../Library/Cookies";
+import { postRequest } from "../Services/API_service";
+import { DATACONSTANT } from "../constants/data.constant";
+import { getCookie } from "../Services/Cookies";
 
 export const IPMasterPOPUP = ({ setIPPopup }) => {
   const [formData, setFormData] = useState();
@@ -86,14 +85,14 @@ export const IPMasterPOPUP = ({ setIPPopup }) => {
   };
   const [btnDisable, setBtnDisable] = useState(false);
   return (
-    <div class="modal show" style={{ display: "block" }} id="myModal">
-      <div class="modal-dialog ">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3 class="modal-title">SAVE IPADDRESS</h3>
+    <div className="modal show" style={{ display: "block" }} id="myModal">
+      <div className="modal-dialog ">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h3 className="modal-title">SAVE IPADDRESS</h3>
             <button
               type="button"
-              class="close"
+              className="close"
               data-dismiss="modal"
               onClick={() => setIPPopup(false)}
             >
@@ -101,27 +100,27 @@ export const IPMasterPOPUP = ({ setIPPopup }) => {
             </button>
           </div>
           {!show ? (
-            <div class="modal-body">
-              <div class="container">
-                <div class="credit rounded mt-2 justify-content-between align-items-center">
-                  <div class="mt-3">
+            <div className="modal-body">
+              <div className="container">
+                <div className="credit rounded mt-2 justify-content-between align-items-center">
+                  <div className="mt-3">
                     <form>
-                      <div class="form-group">
+                      <div className="form-group">
                         <label for="exampleInputPassword1">IP Type</label>
                         <text
                           aria-describedby="helpType"
-                          class="form-control"
+                          className="form-control"
                           id="ddlIPType"
                           tabindex="2"
                         >
                           API IP
                         </text>
                       </div>{" "}
-                      <div class="form-group">
+                      <div className="form-group">
                         <label for="exampleInputPassword1">IP</label>
                         <input
                           type="text"
-                          class="form-control"
+                          className="form-control"
                           placeholder="xxx-xxx-xxx-xxx"
                           required=""
                           name="IP"
@@ -141,7 +140,7 @@ export const IPMasterPOPUP = ({ setIPPopup }) => {
                       {btnDisable ? (
                         <button
                           type="button"
-                          class="btn btn-primary"
+                          className="btn btn-primary"
                           onClick={saveIP}
                         >
                           {disabled ? "Requesting..." : "Save"}
@@ -149,7 +148,7 @@ export const IPMasterPOPUP = ({ setIPPopup }) => {
                       ) : (
                         <button
                           type="button"
-                          class="btn btn-primary"
+                          className="btn btn-primary"
                           onClick={saveIP}
                           disabled
                         >
@@ -158,7 +157,7 @@ export const IPMasterPOPUP = ({ setIPPopup }) => {
                       )}
                       <button
                         type="button"
-                        class="btn btn-primary ml-2"
+                        className="btn btn-primary ml-2"
                         onClick={() => {
                           setIPPopup(false);
                         }}
@@ -171,38 +170,38 @@ export const IPMasterPOPUP = ({ setIPPopup }) => {
               </div>
             </div>
           ) : (
-            <div class="modal-body">
-              <div class="container">
-                <div class="credit rounded mt-2 justify-content-between align-items-center">
-                  <div class="mt-3">
+            <div className="modal-body">
+              <div className="container">
+                <div className="credit rounded mt-2 justify-content-between align-items-center">
+                  <div className="mt-3">
                     <form>
-                      <div class="form-group">
+                      <div className="form-group">
                         <label for="exampleInputPassword1">IP Type</label>
                         <text
                           aria-describedby="helpType"
-                          class="form-control"
+                          className="form-control"
                           id="ddlIPType"
                           tabindex="2"
                         >
                           API IP
                         </text>
                       </div>{" "}
-                      <div class="form-group">
+                      <div className="form-group">
                         <label for="exampleInputPassword1">IP</label>
                         <input
                           type="text"
-                          class="form-control"
+                          className="form-control"
                           placeholder="xxxx-xxxx-xxxx-xxxx"
                           required=""
                           name="IP"
                           onChange={inputHandler}
                         />
                       </div>
-                      <div class="form-group">
+                      <div className="form-group">
                         <label for="exampleInputPassword1">OTP</label>
                         <input
                           type="text"
-                          class="form-control"
+                          className="form-control"
                           placeholder="please enter otp"
                           name="OTP"
                           onChange={inputHandler}
@@ -210,7 +209,7 @@ export const IPMasterPOPUP = ({ setIPPopup }) => {
                       </div>
                       <button
                         type="button"
-                        class="btn btn-primary"
+                        className="btn btn-primary"
                         onClick={() => {
                           saveIP();
                         }}
@@ -219,7 +218,7 @@ export const IPMasterPOPUP = ({ setIPPopup }) => {
                       </button>
                       <button
                         type="button"
-                        class="btn btn-primary ml-2"
+                        className="btn btn-primary ml-2"
                         onClick={() => {}}
                       >
                         Cancel

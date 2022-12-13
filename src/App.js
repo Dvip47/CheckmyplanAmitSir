@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from "react";
 import "./App.css";
-
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { getCookie } from "./Components/Library/Cookies";
-import Login from "./Components/Pages/Login";
-import Order_Summary from "./Components/Pages/Order_Summary";
-import PlanTypes from "./Components/Pages/plantypes";
-import Forgot_password from "./Components/Pages/Forgot_password";
-import Register from "./Components/Pages/Register";
-import { IPMaster } from "./Components/Pages/IPMaster";
 import "./global";
+import React, { useEffect, useState } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { getCookie } from "./Services/Cookies";
+import Login from "./Pages/Login";
+import PlanTypes from "./Pages/plantypes";
+import Forgot_password from "./Pages/Forgot_password";
+import Register from "./Pages/Register";
+import { IPMaster } from "./Pages/IPMaster";
+import { Circlecode } from "./Pages/Circlecode";
+import { Operatortype } from "./Pages/Operatortype";
 import { DATACONSTANT } from "./constants/data.constant";
-import { Circlecode } from "./Components/Pages/Circlecode";
-import { Operatortype } from "./Components/Pages/Operatortype";
+
 
 function App() {
   const navigate = useNavigate();
@@ -38,7 +37,6 @@ function App() {
       {page ? (
         <Routes>
           <Route exact path="/" element={<PlanTypes />} />
-          <Route exact path="/Order_Summary" element={<Order_Summary />} />
           <Route exact path="/IPMaster" element={<IPMaster />} />
           <Route exact path="/Circlecode" element={<Circlecode />} />
           <Route exact path="/Operatortype" element={<Operatortype />} />

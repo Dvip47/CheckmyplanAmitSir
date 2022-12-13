@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "../../assets/css/addMoney.css";
-import { getCookie } from "../Library/Cookies";
-import { DATACONSTANT } from "../../constants/data.constant";
-import { postRequest } from "../../Services/API_service";
+import "../assets/css/addMoney.css";
+import { getCookie } from "../Services/Cookies";
+import { DATACONSTANT } from "../constants/data.constant";
+import { postRequest } from "../Services/API_service";
 import { toast } from "react-toastify";
 
 function PaymentGatewayModal({
@@ -143,22 +143,22 @@ function PaymentGatewayModal({
     setLoader(false);
   }
   return (
-    <div class="modal show" style={{ display: "block" }} id="myModal">
-      <div class="modal-dialog ">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3 class="modal-title">CHOOSE PAYMENT GATEWAY</h3>
+    <div className="modal show" style={{ display: "block" }} id="myModal">
+      <div className="modal-dialog ">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h3 className="modal-title">CHOOSE PAYMENT GATEWAY</h3>
             <button
               type="button"
-              class="close"
+              className="close"
               data-dismiss="modal"
               onClick={() => setPaymentGatewayState(false)}
             >
               ×
             </button>
           </div>
-          <div class="modal-body">
-            <div class="container">
+          <div className="modal-body">
+            <div className="container">
               <div>
                 {loader && (
                   <div
@@ -176,21 +176,21 @@ function PaymentGatewayModal({
                       color: "#fff",
                     }}
                   >
-                    <div class="spinner-border m-5" role="status">
-                      <span class="sr-only">Loading...</span>
+                    <div className="spinner-border m-5" role="status">
+                      <span className="sr-only">Loading...</span>
                     </div>
                   </div>
                 )}
                 {method?.map((data, index) => {
                   return (
                     <div
-                      class="credit rounded mt-2 justify-content-between align-items-center"
+                      className="credit rounded mt-2 justify-content-between align-items-center"
                       onClick={() => setChooseMethod(index)}
                     >
-                      <div class="mt-3">
+                      <div className="mt-3">
                         <button
                           type="button"
-                          class="btn btn-primary btn- btn-block btn-lg"
+                          className="btn btn-primary btn- btn-block btn-lg"
                           onClick={() => redirectToPayment(index)}
                         >
                           {data.pg}

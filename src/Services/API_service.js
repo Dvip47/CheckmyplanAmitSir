@@ -1,27 +1,24 @@
 import axios from "axios";
-import { getCookie } from "../Components/Library/Cookies";
+import { getCookie } from "./Cookies";
 import { DATACONSTANT } from "../constants/data.constant";
 
-// const baseURL = "https://roundpay.net";
 const baseURL = DATACONSTANT.BASE_URL;
-//const baseURL="https://api.torentx.org:3005/";
 const getStoredAuthToken = () => {
   let c = getCookie(DATACONSTANT.SETCOOKIE);
   return !c ? {} : JSON.parse(c)?.token;
-  //return localStorage.token;
 };
 
 function getHeaders() {
   return {
     accept: "application/json",
-    authorization: `Bearer ${getStoredAuthToken()}`,
+    //authorization: `Bearer ${getStoredAuthToken()}`,
   };
 }
 
 function postHeaders() {
   return {
     "content-type": "application/json",
-    authorization: `Bearer ${getStoredAuthToken()}`,
+    //authorization: `Bearer ${getStoredAuthToken()}`,
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers":
       "Origin, X-Requested-With, Content-Type, Accept",

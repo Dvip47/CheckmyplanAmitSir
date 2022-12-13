@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AVATAR1 from "../../assets/images/users/avatar-1.jpg";
-import { DATACONSTANT } from "../../constants/data.constant";
-import { postRequest } from "../../Services/API_service";
-import delete_cookie, { getCookie } from "../Library/Cookies";
-import favicon3 from "../../assets/images/favicon3.png";
-import ChangePasswordModal from "./ChangePasswordModal";
+import { DATACONSTANT } from "../constants/data.constant";
+import { postRequest } from "../Services/API_service";
+import delete_cookie, { getCookie } from "../Services/Cookies";
+import favicon3 from "../assets/images/favicon3.png";
+import AVATAR1 from "../assets/images/users/avatar-1.jpg";
+import ChangePasswordModal from "../Pages/ChangePasswordModal";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -34,11 +34,8 @@ function Rightbar({ show1, setShow1, getBalance, balance }) {
   }, []);
 
   async function getRemoveCookies() {
-    await delete_cookie(".plan_info");
-    // console.log("Hii, cookies are here", getCookie(DATACONSTANT.SETCOOKIE));
-    // setTimeout(() => {
+    await delete_cookie(".plan_info"); 
     window.location.href = "http://checkmyplan.in";
-    // }, 1000);
     // navigate("http://checkmyplan.in");
   }
 
@@ -55,7 +52,6 @@ function Rightbar({ show1, setShow1, getBalance, balance }) {
       });
       await delete_cookie(".plan_info");
       window.location.href = "http://checkmyplan.in";
-      // window.location.href = "http://localhost:4000";
     } catch (error) {
       return {
         statuscode: -1,
@@ -103,7 +99,7 @@ function Rightbar({ show1, setShow1, getBalance, balance }) {
       <div className="menu-extras topbar-custom">
         <ul className="list-unstyled float-right mb-0">
           <li className="fa dropdown notification-list">
-            {/* <i class="fa fa-inr" aria-hidden="true"></i> */}
+            {/* <i className="fa fa-inr" aria-hidden="true"></i> */}
             <span
               style={{
                 fontSize: "16px",
@@ -128,28 +124,28 @@ function Rightbar({ show1, setShow1, getBalance, balance }) {
           {/* <!-- User--> */}
           <li
             onClick={() => setShow1(true)}
-            class="dropdown notification-list show"
+            className="dropdown notification-list show"
           >
             <a
-              class="nav-link dropdown-toggle arrow-none waves-effect nav-user"
+              className="nav-link dropdown-toggle arrow-none waves-effect nav-user"
               data-toggle="dropdown"
               href="#"
               role="button"
               aria-haspopup="false"
               aria-expanded="true"
             >
-              <img src={AVATAR1} alt="user" class="rounded-circle" />
+              <img src={AVATAR1} alt="user" className="rounded-circle" />
             </a>
             {show1 && (
               <div
-                class={
+                className={
                   !show1
                     ? "dropdown-menu dropdown-menu-right profile-dropdown border-0 dropdown-menu-right"
                     : " dropdown-menu dropdown-menu-right profile-dropdown border-0 dropdown-menu-right show"
                 }
                 x-placement="top-end"
               >
-                <div class="dropdown-item noti-title cus-hover">
+                <div className="dropdown-item noti-title cus-hover">
                   {JSON.parse(x).name ? (
                     <h5>
                       {JSON.parse(x)?.name} &nbsp; (UserID:{" "}
@@ -159,7 +155,7 @@ function Rightbar({ show1, setShow1, getBalance, balance }) {
                     <h5>UserID: {JSON.parse(x)?.userID}</h5>
                   )}
                 </div>
-                <div class="dropdown-item noti-title">
+                <div className="dropdown-item noti-title">
                   <div className="d-flex justify-content-between">
                     <p
                       className="token"
@@ -174,49 +170,41 @@ function Rightbar({ show1, setShow1, getBalance, balance }) {
                       onClick={handleCopy}
                     ></i>
                   </div>
-                </div>
-                <a class="dropdown-item" href="">
+                              </div>
+                              <div className="dropdown-divider"></div>
+                <a className="dropdown-item" href="">
                   {JSON.parse(x)?.emailID}
                 </a>
-                <div class="dropdown-divider"></div>
+                <div className="dropdown-divider"></div>
                 <a
-                  class="dropdown-item"
+                  className="dropdown-item"
                   href="#"
                   onClick={() => {
                     setModal(true);
                   }}
                 >
-                  <i class="fa fa-key iconfm m-r-5 text-muted"></i> Change
+                  <i className="fa fa-key iconfm m-r-5 text-muted"></i> Change
                   Password
                 </a>
+
                 {modal && (
                   <ChangePasswordModal modal={modal} setModal={setModal} />
                 )}
-                <div class="dropdown-divider"></div>
+                <div className="dropdown-divider"></div>
                 <a
-                  class="dropdown-item"
-                  href="https://admin.checkmyplan.in/apidoc?t=1"
-                  target="_blank"
-                >
-                  <i class="fa fa-file iconfm m-r-5 text-muted"></i> API
-                  Documentation
-                </a>
-                <div class="dropdown-divider"></div>
-                <a
-                  class="cursor-pointer"
-                  href="https://admin.checkmyplan.in/doc/checkmyplan.pdf"
+                  className="cursor-pointer"
+                  href="https://checkmyplan.in/checkmyplan.pdf"
                   target="_blank"
                 >
                   <i
-                    class="fa fa-download m-r-5 text-muted "
+                    className="fa fa-download m-r-5 text-muted "
                     style={{ marginLeft: "15px", fontSize: "20px" }}
-                  ></i>{" "}
+                  ></i>
                   Download
                 </a>
-
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item cursor-pointer" onClick={logout}>
-                  <i class="mdi mdi-logout m-r-5 text-muted"></i> Logout
+                <div className="dropdown-divider"></div>
+                <a className="dropdown-item cursor-pointer" onClick={logout}>
+                  <i className="mdi mdi-logout m-r-5 text-muted"></i> Logout
                 </a>
               </div>
             )}
@@ -229,5 +217,5 @@ function Rightbar({ show1, setShow1, getBalance, balance }) {
 
 export default Rightbar;
 {
-  /* <a class="dropdown-item" href="http://checkmyplan.in/"> */
+  /* <a className="dropdown-item" href="http://checkmyplan.in/"> */
 }

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { DATACONSTANT } from "../../constants/data.constant";
+import { DATACONSTANT } from "../constants/data.constant";
 import { useEffect } from "react";
-import { getRequest, postRequest } from "../../Services/API_service";
+import { getRequest, postRequest } from "../Services/API_service";
 import Navbar from "./Navbar";
-import { getCookie } from "../Library/Cookies";
+import { getCookie } from "../Services/Cookies";
 
 export const Circlecode = () => {
   useEffect(() => {
@@ -30,7 +30,6 @@ export const Circlecode = () => {
         SessionID: __x?.sessionID,
         Session: __x?.session,
       });
-      // console.log("balance", postResponse?.bBalance);
       setBalance(postResponse?.bBalance);
     } catch (error) {
       return {
@@ -44,7 +43,6 @@ export const Circlecode = () => {
     try {
       var getResponse = await getRequest(DATACONSTANT.GETCIRCLECODE);
       setData(getResponse?.data);
-      console.log("....", getResponse);
     } catch (error) {
       return {
         statusCode: -1,
@@ -54,11 +52,9 @@ export const Circlecode = () => {
   }
   return (
     <div>
-      {" "}
       <header id="topnav">
         <div className="topbar-main">
           <div className="container-fluid">
-            {/* <Leftbar /> */}
             <div className="clearfix"></div>
           </div>
           <Navbar
@@ -70,30 +66,30 @@ export const Circlecode = () => {
             balance={balance}
             setBalance={setBalance}
           />
-        </div>{" "}
+        </div>
       </header>
-      <div id="__p" class="main-temp-body " style={{ marginTop: "100px" }}>
-        <div class="container-fluid">
-          <div class="row">
+      <div id="__p" className="main-temp-body " style={{ marginTop: "100px" }}>
+        <div className="container-fluid">
+          <div className="row">
             <input type="hidden" id="hdnIP" />
             <input type="hidden" id="hdnIPType" />
-            <div class="col-md-12">
-              <div class="card cus-card mt-5">
+            <div className="col-md-12">
+              <div className="card cus-card mt-5">
                 <div
-                  class="card-header cus-bg text-white"
+                  className="card-header cus-bg text-white"
                   style={{
                     backgroundColor: "rgb(96 93 175)",
                   }}
                 >
-                  <i class="fas fa-link"></i> Circle Code
+                  <i className="fas fa-link"></i> Circle Code
                 </div>
-                <div class="card-body p-1">
-                  <div class="table-responsive calcHeight">
+                <div className="card-body p-1">
+                  <div className="table-responsive calcHeight">
                     <table
-                      class="table table-bordered table-striped table-responsive-sm fixedHeader"
+                      className="table table-bordered table-striped table-responsive-sm fixedHeader"
                       id="tblIPAddress"
                     >
-                      <thead class="bg-tableth" style={{ width: "10px" }}>
+                      <thead className="bg-tableth" style={{ width: "10px" }}>
                         <tr>
                           <th>#</th>
                           <th>Circle</th>
@@ -115,8 +111,8 @@ export const Circlecode = () => {
                       ) : (
                         <tbody>
                           <tr>
-                            <td colspan="8">
-                              <h3 class="text-center">Data Not Found</h3>
+                            <td colSpan="8">
+                              <h3 className="text-center">Data Not Found</h3>
                             </td>
                           </tr>
                         </tbody>

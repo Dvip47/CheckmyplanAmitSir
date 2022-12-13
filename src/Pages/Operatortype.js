@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { DATACONSTANT } from "../../constants/data.constant";
+import { DATACONSTANT } from "../constants/data.constant";
 import { useEffect } from "react";
-import { getRequest, postRequest } from "../../Services/API_service";
+import { getRequest, postRequest } from "../Services/API_service";
 import Navbar from "./Navbar";
-import { getCookie } from "../Library/Cookies";
+import { getCookie } from "../Services/Cookies";
 
 export const Operatortype = () => {
   useEffect(() => {
@@ -43,7 +43,6 @@ export const Operatortype = () => {
     try {
       var getResponse = await getRequest(DATACONSTANT.GETOPERATORCODE);
       setData(getResponse?.data);
-      console.log("....", getResponse);
     } catch (error) {
       return {
         statusCode: -1,
@@ -58,7 +57,6 @@ export const Operatortype = () => {
       <header id="topnav">
         <div className="topbar-main">
           <div className="container-fluid">
-            {/* <Leftbar /> */}
             <div className="clearfix"></div>
           </div>
           <Navbar
@@ -70,72 +68,30 @@ export const Operatortype = () => {
             balance={balance}
             setBalance={setBalance}
           />
-        </div>{" "}
+        </div>
       </header>
-      <div id="__p" class="main-temp-body " style={{ marginTop: "100px" }}>
-        <div class="container-fluid">
-          <div class="row">
+      <div id="__p" className="main-temp-body " style={{ marginTop: "100px" }}>
+        <div className="container-fluid">
+          <div className="row">
             <input type="hidden" id="hdnIP" />
             <input type="hidden" id="hdnIPType" />
-            <div class="col-md-12">
-              <div class="card cus-card mt-5">
+            <div className="col-md-12">
+              <div className="card cus-card mt-5">
                 <div
-                  class="card-header cus-bg text-white"
+                  className="card-header cus-bg text-white"
                   style={{
                     backgroundColor: "rgb(96 93 175)",
                   }}
                 >
-                  <i class="fas fa-link"></i> Operator Type's
-                  {/* <div class="float-right">
-                    <div
-                      class="input-group"
-                      style={{
-                        borderBottom: "1px solid",
-                        background: "#605dafb",
-                      }}
-                    >
-                      <input
-                        id="txtSearch"
-                        class="form-control text-left"
-                        placeholder="Search IPAddress"
-                        style={{
-                          marginRight: "10px",
-                          border: "none",
-                          color: "#fff",
-                          background: "#605daf",
-                        }}
-                      />
-                      <i
-                        class="fa fa-search"
-                        aria-hidden="true"
-                        style={{
-                          margin: "auto",
-                          marginRight: "5px",
-                          color: "#fff",
-                          background: "none",
-                          border: "none",
-                        }}
-                      ></i>
-                    </div>
-                  </div> */}
+                  <i className="fas fa-link"></i> Operator Type's
                 </div>
-                <div class="card-body p-1">
-                  <div class="table-responsive calcHeight">
+                <div className="card-body p-1">
+                  <div className="table-responsive calcHeight">
                     {data.length !== 0 ? (
                       <>
                         {data?.map((item, i) => {
                           return (
                             <>
-                              {/* <tr data-item-id="6">
-                                  <td>
-                                    <span className="btn btn-sm btn-outline-success mr-2">
-                                      <i className="fa fa-plus"></i>
-                                    </span>
-                                    {i + 1}
-                                  </td>
-                                  <td>{item.optype} </td>
-                                </tr> */}
-
                               <table className="table">
                                 <thead>
                                   <tr>

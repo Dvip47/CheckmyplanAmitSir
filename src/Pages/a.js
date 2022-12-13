@@ -1,6 +1,5 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { getCookie } from "../../Library/Cookies";
 import { DATACONSTANT } from "../../../constants/data.constant";
 import { getRequest } from "../../../Services/API_service";
 
@@ -23,28 +22,28 @@ function Circle() {
   });
   return (
     <>
-      <div id="__p" class="main-temp-body " style={{ marginTop: "8%" }}>
-        <div class="container-fluid">
-          <div class="row">
+      <div id="__p" className="main-temp-body " style={{ marginTop: "8%" }}>
+        <div className="container-fluid">
+          <div className="row">
             <input type="hidden" id="hdnIP" />
             <input type="hidden" id="hdnIPType" />
-            <div class="col-md-12">
-              <div class="card mt-5">
+            <div className="col-md-12">
+              <div className="card mt-5">
                 <div
-                  class="card-header cus-bg text-white"
+                  className="card-header cus-bg text-white"
                   style={{
                     backgroundColor: "#313197",
                   }}
                 >
-                  <i class="fas fa-link"></i> All Circle
+                  <i className="fas fa-link"></i> All Circle
                 </div>
-                <div class="card-body p-1">
-                  <div class="table-responsive calcHeight">
+                <div className="card-body p-1">
+                  <div className="table-responsive calcHeight">
                     <table
-                      class="table table-bordered table-striped table-responsive-sm fixedHeader"
+                      className="table table-bordered table-striped table-responsive-sm fixedHeader"
                       id="tblIPAddress"
                     >
-                      <thead class="bg-tableth">
+                      <thead className="bg-tableth">
                         <tr>
                           <th>#</th>
                           <th>Circle</th>

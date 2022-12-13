@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Leftbar from "./Leftbar";
 import Navbar from "./Navbar";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IPMasterPOPUP } from "./IPMasterPOPUP";
-import "../../assets/css/IP.css";
-import { postRequest } from "../../Services/API_service";
-import { DATACONSTANT } from "../../constants/data.constant";
-import { getCookie } from "../Library/Cookies";
+import "../assets/css/IP.css";
+import { postRequest } from "../Services/API_service";
+import { DATACONSTANT } from "../constants/data.constant";
+import { getCookie } from "../Services/Cookies";
 import swal from "sweetalert";
 
 export const IPMaster = () => {
@@ -132,23 +131,23 @@ export const IPMaster = () => {
         </div>{" "}
       </header>
 
-      <div id="__p" class="main-temp-body " style={{ marginTop: "100px" }}>
-        <div class="container-fluid">
-          <div class="row">
+      <div id="__p" className="main-temp-body " style={{ marginTop: "100px" }}>
+        <div className="container-fluid">
+          <div className="row">
             <input type="hidden" id="hdnIP" />
             <input type="hidden" id="hdnIPType" />
-            <div class="col-md-12">
-              <div class="card cus-card mt-5">
+            <div className="col-md-12">
+              <div className="card cus-card mt-5">
                 <div
-                  class="card-header cus-bg text-white"
+                  className="card-header cus-bg text-white"
                   style={{
                     backgroundColor: "rgb(96 93 175)",
                   }}
                 >
-                  <i class="fas fa-link"></i> IPAddress Master
-                  <div class="float-right">
+                  <i className="fas fa-link"></i> IPAddress Master
+                  <div className="float-right">
                     <div
-                      class="input-group"
+                      className="input-group"
                       style={{
                         borderBottom: "1px solid",
                         background: "#605dafb",
@@ -156,7 +155,7 @@ export const IPMaster = () => {
                     >
                       <input
                         id="txtSearch"
-                        class="form-control text-left"
+                        className="form-control text-left"
                         placeholder="Search IPAddress"
                         style={{
                           marginRight: "10px",
@@ -166,7 +165,7 @@ export const IPMaster = () => {
                         }}
                       />
                       <i
-                        class="fa fa-search"
+                        className="fa fa-search"
                         aria-hidden="true"
                         style={{
                           margin: "auto",
@@ -177,10 +176,10 @@ export const IPMaster = () => {
                         }}
                       ></i>
 
-                      <div class="input-group-append">
+                      <div className="input-group-append">
                         <button
                           id="btnNew"
-                          class="btn btn-default btn-sm"
+                          className="btn btn-default btn-sm"
                           style={{ borderRadius: "2px" }}
                           onClick={() => {
                             setIPPopup(true);
@@ -197,19 +196,19 @@ export const IPMaster = () => {
                       </div>
                     </div>
                   </div>
-                  {/* <div class="form-inline float-right">
-                    <div class="form-group has-search">
-                      <span class="fa fa-search form-control-feedback"></span>
+                  {/* <div className="form-inline float-right">
+                    <div className="form-group has-search">
+                      <span className="fa fa-search form-control-feedback"></span>
                       <input
                         type="text"
-                        class="form-control"
+                        className="form-control"
                         placeholder="Search IP Address"
                       />
                     </div>
 
                     <button
                       id="btnNew"
-                      class="btn btn-primary"
+                      className="btn btn-primary"
                       onClick={() => {
                         setIPPopup(true);
                       }}
@@ -224,13 +223,13 @@ export const IPMaster = () => {
                     )}
                   </div> */}
                 </div>
-                <div class="card-body p-1">
-                  <div class="table-responsive calcHeight">
+                <div className="card-body p-1">
+                  <div className="table-responsive calcHeight">
                     <table
-                      class="table table-bordered table-striped table-responsive-sm fixedHeader"
+                      className="table table-bordered table-striped table-responsive-sm fixedHeader"
                       id="tblIPAddress"
                     >
-                      <thead class="bg-tableth" style={{ width: "10px" }}>
+                      <thead className="bg-tableth" style={{ width: "10px" }}>
                         <tr>
                           <th>#</th>
                           {/* <th>User</th> */}
@@ -258,27 +257,26 @@ export const IPMaster = () => {
 
                                 <td>
                                   {item.isActive ? (
-                                    <label class="switch">
+                                    <label className="switch">
                                       <input type="checkbox" checked />
-                                      <span class="slider round"></span>
+                                      <span className="slider round"></span>
                                     </label>
                                   ) : (
-                                    <label class="switch">
+                                    <label className="switch">
                                       <input type="checkbox" />
-                                      <span class="slider round"></span>
+                                      <span className="slider round"></span>
                                     </label>
                                   )}
                                 </td>
                                 <td>
                                   <i
-                                    class="fa fa-trash"
+                                    className="fa fa-trash"
                                     aria-hidden="true"
                                     style={{ color: "red" }}
                                     onClick={() => {
                                       deleteIP(item.id);
                                       getIP();
                                     }}
-                                    // onClick={deleteIP(item.id)}
                                   ></i>
                                 </td>
                               </tr>
@@ -289,7 +287,7 @@ export const IPMaster = () => {
                         <tbody>
                           <tr>
                             <td colspan="8">
-                              <h3 class="text-center">Data Not Found</h3>
+                              <h3 className="text-center">Data Not Found</h3>
                             </td>
                           </tr>
                         </tbody>
